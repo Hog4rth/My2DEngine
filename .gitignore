@@ -1,0 +1,21 @@
+# ==========================================
+# FILE DI ESCLUSIONE PER GIT - PROGETTO C++
+# ==========================================
+
+# 1. Ignora le cartelle di compilazione generate da CMake e Visual Studio
+/out/
+/build/
+/.vs/
+/CMakeSettings.json
+
+# 2. Ignora tutti i file binari compilati (i mattoni del saldatore)
+*.exe
+*.dll
+*.obj
+*.lib
+*.pdb
+
+# 3. ECCEZIONE FONDAMENTALE: Vogliamo salvare le nostre librerie esterne!
+# Sblocchiamo la cartella external così chi scarica il progetto ha già SDL pronto all'uso
+!/external/
+!/external/**
