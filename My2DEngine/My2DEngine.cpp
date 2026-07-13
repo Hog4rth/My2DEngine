@@ -21,6 +21,7 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
+    std::cout << "Ho fatto una modificaaaaaa" << std::endl;
     std::cout << "Finestra creata! Il gioco restera' aperto per 3 secondi..." << std::endl;
 
     // 3. Mettiamo il programma in pausa per 3 secondi (3000 millisecondi)
