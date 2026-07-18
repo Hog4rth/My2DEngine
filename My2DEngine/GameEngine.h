@@ -1,9 +1,17 @@
 #pragma once
 #include <SDL3/SDL.h>
+#include <string> 
+
+// Questa è la struttura che contiene le impostazioni (Con valori di sicurezza di default!)
+struct GameSettings {
+	std::string title = "Engine di Default";
+	int width = 800;
+	int height = 600;
+};
 
 class GameEngine {
 public:
-	bool Inizialize(const char* title, int width, int height);
+	bool Inizialize(const std::string& percorsoFileConfig);
 	void Run();
 	void Close();
 
