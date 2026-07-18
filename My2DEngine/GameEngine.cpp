@@ -37,6 +37,10 @@ bool GameEngine::Inizialize(const std::string& percorsoFileConfig) {
         std::cout << "ATTENZIONE: File config non trovato! Uso settings di default." << std::endl;
     }
 
+	std::cout << "DEBUG: Titolo: " << settings.title << std::endl;
+	std::cout << "DEBUG: Larghezza: " << settings.width << std::endl;
+	std::cout << "DEBUG: Altezza: " << settings.height << std::endl;
+
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         std::cout << "Error, SDL_Init: " << SDL_GetError() << std::endl;
         return false;

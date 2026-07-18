@@ -40,3 +40,12 @@ add_custom_command(TARGET My2DEngine POST_BUILD
         "${CMAKE_CURRENT_SOURCE_DIR}/external/SDL_image/lib/x64/SDL3_image.dll"
         $<TARGET_FILE_DIR:My2DEngine>
 )
+
+# Ordiniamo a CMake: "Ogni volta che finisci di compilare My2DEngine con successo,
+# prendi la versione più recente di settings.ini e copiala di fianco all'eseguibile!"
+add_custom_command(
+    TARGET My2DEngine POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    "${CMAKE_CURRENT_SOURCE_DIR}/Settings.ini"
+    "$<TARGET_FILE_DIR:My2DEngine>"
+)

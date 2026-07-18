@@ -4,7 +4,7 @@
 
 // Questa è la struttura che contiene le impostazioni (Con valori di sicurezza di default!)
 struct GameSettings {
-	std::string title = "Engine di Default";
+	std::string title = "Engine Default";
 	int width = 800;
 	int height = 600;
 };
