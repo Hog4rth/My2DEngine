@@ -2,7 +2,6 @@
 #include <SDL3/SDL.h>
 #include <string> 
 
-// Questa è la struttura che contiene le impostazioni (Con valori di sicurezza di default!)
 struct GameSettings {
 	std::string title = "Engine Default";
 	int width = 800;
@@ -11,7 +10,7 @@ struct GameSettings {
 
 class GameEngine {
 public:
-	bool Inizialize(const std::string& percorsoFileConfig);
+	bool Inizialize(const std::string& FileConfigPath);
 	void Run();
 	void Close();
 
@@ -22,6 +21,6 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	bool GameIsGoing = false;
 
-	SDL_FRect mc = { 100.0f, 100.0f, 50.0f, 50.0f }; // Main Character
+	SDL_FRect Hogarth = { 100.0f, 100.0f, 50.0f, 50.0f }; // Main Character
 
 };
