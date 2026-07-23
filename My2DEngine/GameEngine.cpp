@@ -33,10 +33,6 @@ bool GameEngine::Inizialize(const std::string& FileConfigPath) {
         std::cout << "Warning: Config file not found! Using default settings." << std::endl;
     }
 
-
-
-	std::cout << "DEBUG: Altezza: " << settings.height << std::endl;
-
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         std::cout << "Error, SDL_Init: " << SDL_GetError() << std::endl;
         return false;
@@ -64,21 +60,21 @@ void GameEngine::Run() {
     lastTick = SDL_GetTicks();
     
     GameIsGoing = true;
+
+    while (GameIsGoing) {
+
         Uint64 currentTick = SDL_GetTicks();
         float deltaTime = (currentTick - lastTick) / 1000.0f;
         lastTick = currentTick;
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+
         // --- Delta Time Clamping ---
         if (deltaTime > 0.05f) {
             deltaTime = 0.05f; // 20 FPS
         }
 
-		ProcessInput(); // Process input and check if the game should continue
+        ProcessInput(); // Process input and check if the game should continue
         Update(deltaTime);
         Render();
-  
-
-        SDL_RenderPresent(renderer);
     }
 }
 
@@ -92,7 +88,9 @@ void GameEngine::Close() {
 
 void GameEngine::ProcessInput() {
     SDL_Event event;
-		if (event.type == SDL_EVENT_QUIT) { // Handle quit event
+
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_EVENT_QUIT) { // Handle quit event
             GameIsGoing = false;
         }
         else if (event.type == SDL_EVENT_KEY_DOWN) {
@@ -105,7 +103,7 @@ void GameEngine::ProcessInput() {
         }
         else if (event.type == SDL_EVENT_KEY_UP) {
             if (event.key.key == SDLK_A || event.key.key == SDLK_D) {
-				Velocity[0].vx = 0.0f; // Stop horizontal movement
+                Velocity[0].vx = 0.0f; // Stop horizontal movement
             }
         }
     }
@@ -122,15 +120,13 @@ void GameEngine::Render() {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
 
-    // --- Update mc position ---
-    mc.x = Position[0].x;
-    mc.y = Position[0].y;
+    // --- Update Main Character position ---
+    Hogarth.x = Position[0].x;
+    Hogarth.y = Position[0].y;
 
     // --- Draw the protagonist ---
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderFillRect(renderer, &mc);
+    SDL_RenderFillRect(renderer, &Hogarth);
 
     SDL_RenderPresent(renderer);
-    }
-    return true;
 }

@@ -25,7 +25,7 @@ private:
 	// COMPONENTS
 	PositionComponent Position[MAX_ECS_ENTITIES];
 	VelocityComponent Velocity[MAX_ECS_ENTITIES];
-	SDL_FRect mc = { 100.0f, 100.0f, 50.0f, 50.0f }; // Main Character
+	SDL_FRect Hogarth = { 100.0f, 100.0f, 50.0f, 50.0f }; // Main Character
 
 	// GAME LOOP
 	SDL_Window* window = nullptr;
