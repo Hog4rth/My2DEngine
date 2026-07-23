@@ -2,8 +2,8 @@
 # project-specific logic here.
 #
 
-# Add the source files to this project's executable.
-add_executable(My2DEngine "My2DEngine.cpp" "My2DEngine.h" "GameEngine.cpp" "GameEngine.h" ) # Inside the parentheses add files like (... "New.cpp" "New.h")
+# Aggiungere l'origine all'eseguibile di questo progetto.
+add_executable(My2DEngine "My2DEngine.cpp" "My2DEngine.h" "GameEngine.cpp" "GameEngine.h" "Components.h" "MovementSystem.cpp" "MovementSystem.h" ) # Dentro le parentesi in caso si aggiunge (... "New.cpp" "New.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET My2DEngine PROPERTY CXX_STANDARD 20)
