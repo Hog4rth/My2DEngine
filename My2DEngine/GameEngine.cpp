@@ -4,17 +4,11 @@
 #include <filesystem>
 #include "GameEngine.h"
 
+bool GameEngine::Inizialize(const std::string& FileConfigPath) {
 
-
-bool GameEngine::Inizialize(const std::string& percorsoFileConfig) {
-
-	// Prendo le impostazioni dal file di configurazione
+	// I take the settings from the config file, if it exists, otherwise I use the default settings
     GameSettings settings;
-    std::ifstream file(percorsoFileConfig);
-
-    // Stampiamo esattamente in quale cartella il PC sta cercando il file!
-    std::cout << "DEBUG: Il gioco sta cercando nella cartella: "
-        << std::filesystem::current_path() << std::endl;
+    std::ifstream file(FileConfigPath);
 
     if (file.is_open()) {
         std::string line;
@@ -24,22 +18,22 @@ bool GameEngine::Inizialize(const std::string& percorsoFileConfig) {
 
             if (equalPosition != std::string::npos) {
                 std::string key = line.substr(0, equalPosition);
-                std::string value = line.substr(equalPosition + 1);
+                std::string value = line.substr(++equalPosition);
 
-                if (key == "Titolo")            settings.title = value;
-                else if (key == "Larghezza")    settings.width = std::stoi(value);
-                else if (key == "Altezza")      settings.height = std::stoi(value);
+                if (key == "Title")            settings.title = value;
+                else if (key == "Width")       settings.width = std::stoi(value);
+                else if (key == "Height")      settings.height = std::stoi(value);
+				else if (key == "PositionX")    Position[0].x = std::stof(value);
+				else if (key == "PositionY")    Position[0].y = std::stof(value);
             }
         }
         file.close();
     
     } else {
-        std::cout << "ATTENZIONE: File config non trovato! Uso settings di default." << std::endl;
+        std::cout << "Warning: Config file not found! Using default settings." << std::endl;
     }
 
-	std::cout << "DEBUG: Titolo: " << settings.title << std::endl;
-	std::cout << "DEBUG: Larghezza: " << settings.width << std::endl;
-	std::cout << "DEBUG: Altezza: " << settings.height << std::endl;
+
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         std::cout << "Error, SDL_Init: " << SDL_GetError() << std::endl;
@@ -64,20 +58,25 @@ bool GameEngine::Inizialize(const std::string& percorsoFileConfig) {
 }
 
 void GameEngine::Run() {
-    GameIsGoing = true;
     
+    lastTick = SDL_GetTicks();
+    
+    GameIsGoing = true;
     while (GameIsGoing) {
-        GameIsGoing = IsGameGoing();
 
-        // --- DISEGNA LO SFONDO ---
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        SDL_RenderClear(renderer);
+        Uint64 currentTick = SDL_GetTicks();
+        float deltaTime = (currentTick - lastTick) / 1000.0f;
+        lastTick = currentTick;
 
-        // --- DISEGNA IL PROTAGONISTA ---
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        SDL_RenderFillRect(renderer, &mc);
+        // --- Delta Time Clamping ---
+        if (deltaTime > 0.05f) {
+            deltaTime = 0.05f; // 20 FPS
+        }
 
-        SDL_RenderPresent(renderer);
+		ProcessInput(); // Process input and check if the game should continue
+        Update(deltaTime);
+        Render();
+  
     }
 }
 
@@ -89,18 +88,47 @@ void GameEngine::Close() {
 
 }
 
-bool GameEngine::IsGameGoing() {
+void GameEngine::ProcessInput() {
     SDL_Event event;
 
     while (SDL_PollEvent(&event)) {
-        if (event.type == SDL_EVENT_QUIT) { // L'utente ha chiuso la finestra dalla X in alto a destra
-            return false;
+		if (event.type == SDL_EVENT_QUIT) { // Handle quit event
+            GameIsGoing = false;
         }
         else if (event.type == SDL_EVENT_KEY_DOWN) {
-            if (event.key.key == SDLK_SPACE) { // L'utente ha chiuso la finestra premendo spazio
-                return false;
+            if (event.key.key == SDLK_A) {
+                Velocity[0].vx = -100.0f; // Move left
+            }
+            else if (event.key.key == SDLK_D) {
+                Velocity[0].vx = 100.0f; // Move right
+            }
+        }
+        else if (event.type == SDL_EVENT_KEY_UP) {
+            if (event.key.key == SDLK_A || event.key.key == SDLK_D) {
+				Velocity[0].vx = 0.0f; // Stop horizontal movement
             }
         }
     }
-    return true;
+}
+
+void GameEngine::Update(float deltaTime) {
+
+	MovementSystem::Update(Position, Velocity, 1, deltaTime); // Ci andrebbe MAX_ECS_ENTITIES ma per ora lo metto a 1 per far muovere solo il personaggio
+}
+
+void GameEngine::Render() {
+
+    // --- Draw the background ---
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+
+    // --- Update mc position ---
+    mc.x = Position[0].x;
+    mc.y = Position[0].y;
+
+    // --- Draw the protagonist ---
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_RenderFillRect(renderer, &mc);
+
+    SDL_RenderPresent(renderer);
 }

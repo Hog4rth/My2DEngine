@@ -3,7 +3,7 @@
 #
 
 # Aggiungere l'origine all'eseguibile di questo progetto.
-add_executable(My2DEngine "My2DEngine.cpp" "My2DEngine.h" "GameEngine.cpp" "GameEngine.h" ) # Dentro le parentesi in caso si aggiunge (... "New.cpp" "New.h")
+add_executable(My2DEngine "My2DEngine.cpp" "My2DEngine.h" "GameEngine.cpp" "GameEngine.h" "Components.h" "MovementSystem.cpp" "MovementSystem.h" ) # Dentro le parentesi in caso si aggiunge (... "New.cpp" "New.h")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET My2DEngine PROPERTY CXX_STANDARD 20)
