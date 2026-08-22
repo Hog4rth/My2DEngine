@@ -2,10 +2,10 @@
 #include "Components.h"
 #include "RenderSystem.h"
 
-bool RenderSystem::InitializeRenderer(FileManager* fileManager) {
+bool RenderSystem::InitializeRenderer(FileManager& fileManager) {
     
-    width = fileManager->Load<int>("Width", width);
-    height = fileManager->Load<int>("Height", height);
+    width = fileManager.Load<int>("Width", width);
+    height = fileManager.Load<int>("Height", height);
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
         std::cerr << "Error, SDL_Init: " << SDL_GetError() << "\n";

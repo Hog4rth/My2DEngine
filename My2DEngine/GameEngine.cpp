@@ -7,7 +7,7 @@ bool GameEngine::Initialize() {
 
     fileManager.LoadDefaultSettings();
 
-    if (!renderSystem.InitializeRenderer(&fileManager)) {
+    if (!renderSystem.InitializeRenderer(fileManager)) {
         return false;
     }
     return true;
