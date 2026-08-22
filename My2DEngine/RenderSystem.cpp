@@ -59,10 +59,7 @@ void RenderSystem::RenderMC(TagComponent tags[], PositionComponent positions[], 
         if (tags[i].id != EntityTag::Player) {
             continue;
         }
-
-        Hogarth.x = positions[i].x;
-        Hogarth.y = positions[i].y;
-
+        SDL_FRect Hogarth = {positions[i].x, positions[i].y, 50.0f, 50.0f }; // Main Character
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red color for the MC
         SDL_RenderFillRect(renderer, &Hogarth);
         break;
