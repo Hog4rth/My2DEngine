@@ -3,6 +3,7 @@
 
 bool InputManager::ProcessInput(TagComponent tags[], InputComponent inputs[], const int MAX_ECS_ENTITIES) {
     
+    SDL_Event event;
     while (SDL_PollEvent(&event)) {
 
         if (event.type == SDL_EVENT_QUIT) { // Handle quit event
