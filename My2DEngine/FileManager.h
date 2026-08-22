@@ -8,7 +8,6 @@ private:
 	const std::string filePath = "Settings.ini";
 
 public:
-    //void Save(); 
 	void LoadDefaultSettings();
 
 	template <typename T>
