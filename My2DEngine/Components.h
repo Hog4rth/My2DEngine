@@ -22,9 +22,6 @@ struct SizeComponent {
 };
 
 struct CollisionComponent {
-	float jumpCoyoteTimer = 0.0f;
-	float jumpCoyoteDuration = 0.1f; // 0.1 seconds
-
 	bool onTheLeftWall = false;
 	bool onTheRightWall = false;
 	bool isSolid = false;
@@ -33,8 +30,6 @@ struct CollisionComponent {
 
 struct InputComponent{
 	float direction = 0.0f;
-	float jumpBufferTimer = 0.0f;
-	float jumpBufferDuration = 0.15f; // 0.15 seconds
 	
 	bool wasJumping = false;
 	bool isJumping = false;
@@ -44,6 +39,10 @@ struct VelocityComponent {
 	float velocityX = 0.0f;
 	float velocityY = 0.0f;
 
+	bool canItMove = false;
+};
+
+struct KinematicComponent {
 	float acceleration = 3000.0f;
 	float gravity = 2000.0f;
 	float maxSpeed = 800.0f;
@@ -51,5 +50,8 @@ struct VelocityComponent {
 	float jumpForceY = 1000.0f;
 	float jumpForceX = 1000.0f;
 
-	bool canItMove = false;
+	float jumpBufferTimer = 0.0f;
+	float jumpBufferDuration = 0.15f; // 0.15 seconds
+	float jumpCoyoteTimer = 0.0f;
+	float jumpCoyoteDuration = 0.1f; // 0.1 seconds
 };

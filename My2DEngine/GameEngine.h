@@ -34,6 +34,7 @@ private:
 	CollisionComponent colliders[MAX_ECS_ENTITIES];
 	InputComponent inputs[MAX_ECS_ENTITIES];
 	VelocityComponent velocities[MAX_ECS_ENTITIES];
+	KinematicComponent kinematics[MAX_ECS_ENTITIES];
 
 	// GAME LOOP
 	bool gameIsGoing = false;

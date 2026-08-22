@@ -59,7 +59,7 @@ void GameEngine::UpdateDeltaTime() {
 
 void GameEngine::Update() {
 
-	PhysicsSystem::CalculateTrajectory(tags, inputs, colliders, velocities, deltaTime, MAX_ECS_ENTITIES);
+	PhysicsSystem::CalculateTrajectory(tags, inputs, colliders, velocities, kinematics, deltaTime, MAX_ECS_ENTITIES);
 	CollisionSystem::UpdateCollisions(tags, positions, sizes, colliders, velocities, deltaTime, MAX_ECS_ENTITIES);
 	MovementSystem::UpdatePosition(tags, positions, velocities, deltaTime, MAX_ECS_ENTITIES);
     renderSystem.UpdateRender(tags, positions, sizes, MAX_ECS_ENTITIES);
