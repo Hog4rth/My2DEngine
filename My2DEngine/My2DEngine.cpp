@@ -2,19 +2,19 @@
 #include "GameEngine.h"
 
 int main(int argc, char* argv[]) {
-    std::cout << "Starting the program..." << std::endl;
+    std::cout << "Starting the program...\n";
 
     GameEngine engine;
 
     if (!engine.Initialize()) {
-        std::cerr << "GPU can't start up" << std::endl;
+        std::cerr << "GPU can't start up\n";
         return -1;
     }
 
     engine.Run();
     engine.Close();
 
-    std::cout << "Task Completed with success!" << std::endl;
+    std::cout << "Task Completed with success!\n";
     return 0;
 
 }

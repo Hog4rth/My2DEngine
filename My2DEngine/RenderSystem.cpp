@@ -8,20 +8,20 @@ bool RenderSystem::InitializeRenderer(FileManager* fileManager) {
     height = fileManager->Load<int>("Height", height);
 
     if (!SDL_Init(SDL_INIT_VIDEO)) {
-        std::cerr << "Error, SDL_Init: " << SDL_GetError() << std::endl;
+        std::cerr << "Error, SDL_Init: " << SDL_GetError() << "\n";
         return false;
     }
 
     window = SDL_CreateWindow(title.c_str(), width, height, 0);
     if (window == nullptr) {
-        std::cerr << "Error CreateWindow: " << SDL_GetError() << std::endl;
+        std::cerr << "Error CreateWindow: " << SDL_GetError() << "\n";
         SDL_Quit();
         return false;
     }
 
     renderer = SDL_CreateRenderer(window, nullptr);
     if (renderer == nullptr) {
-        std::cerr << "Error CreateRenderer: " << SDL_GetError() << std::endl;
+        std::cerr << "Error CreateRenderer: " << SDL_GetError() << "\n";
         SDL_DestroyWindow(window);
         SDL_Quit();
         return false;
