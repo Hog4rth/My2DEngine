@@ -12,10 +12,6 @@ void CollisionSystem::UpdateCollisions(TagComponent tags[], PositionComponent po
 			continue;
 		}
 
-		if (velocities[i].velocityX == 0 && velocities[i].velocityY == 0) { // check if i-object is moving
-			continue;
-		}
-
 		colliders[i].onTheLeftWall = false;
 		colliders[i].onTheRightWall = false;
 		colliders[i].isOnTheGround = false;
