@@ -1,6 +1,6 @@
 #include "PhysicsSystem.h"
 
-void PhysicsSystem::CalculateTrajectory(TagComponent tags[], InputComponent inputs[], CollisionComponent colliders[], VelocityComponent velocities[], KinematicComponent kinematics[], float deltaTime, const int MAX_ECS_ENTITIES) {
+void PhysicsSystem::CalculateTrajectory(const TagComponent tags[], const InputComponent inputs[], const CollisionComponent colliders[], VelocityComponent velocities[], KinematicComponent kinematics[], const float deltaTime, const int MAX_ECS_ENTITIES) {
 	for (int i = 0; i < MAX_ECS_ENTITIES; ++i) {
 
 		if (tags[i].id == EntityTag::None) {

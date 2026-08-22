@@ -4,5 +4,5 @@
 class MovementSystem {
 public:
 
-	static void UpdatePosition(TagComponent tags[], PositionComponent positions[], VelocityComponent velocities[], float deltaTime, const int MAX_ECS_ENTITIES);
+	static void UpdatePosition(const TagComponent tags[], PositionComponent positions[], const VelocityComponent velocities[], const float deltaTime, const int MAX_ECS_ENTITIES);
 };

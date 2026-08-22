@@ -11,7 +11,7 @@ public:
 	void LoadDefaultSettings();
 
 	template <typename T>
-	T Load(const std::string& key, T defaultValue) {
+	T Load(const std::string& key, const T defaultValue) {
 
 		if (defaultSettings.find(key) != defaultSettings.end()) {
 

@@ -4,5 +4,5 @@
 
 class InputSystem {
 public:
-	static bool ProcessInput(TagComponent tags[], InputComponent inputs[], const int MAX_ECS_ENTITIES);
+	static bool ProcessInput(const TagComponent tags[], InputComponent inputs[], const int MAX_ECS_ENTITIES);
 };

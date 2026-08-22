@@ -1,6 +1,6 @@
 #include "CollisionSystem.h"
 
-void CollisionSystem::UpdateCollisions(TagComponent tags[], PositionComponent positions[], SizeComponent sizes[], CollisionComponent colliders[], VelocityComponent velocities[], float deltaTime, const int MAX_ECS_ENTITIES) {
+void CollisionSystem::UpdateCollisions(const TagComponent tags[], const PositionComponent positions[], const SizeComponent sizes[], CollisionComponent colliders[], VelocityComponent velocities[], const float deltaTime, const int MAX_ECS_ENTITIES) {
 
 	for (int i = 0; i < MAX_ECS_ENTITIES; ++i) {
 

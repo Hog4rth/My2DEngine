@@ -29,7 +29,7 @@ bool RenderSystem::InitializeRenderer(FileManager& fileManager) {
 	return true;
 }
 
-void RenderSystem::UpdateRender(TagComponent tags[], PositionComponent positions[], SizeComponent sizes[], const int MAX_ECS_ENTITIES) {
+void RenderSystem::UpdateRender(const TagComponent tags[], const PositionComponent positions[], const SizeComponent sizes[], const int MAX_ECS_ENTITIES) {
 
 	RenderBackground();
 	RenderSolids(tags, positions, sizes, MAX_ECS_ENTITIES);
@@ -52,7 +52,7 @@ void RenderSystem::RenderBackground() {
 	SDL_RenderClear(renderer);
 }
 
-void RenderSystem::RenderMC(TagComponent tags[], PositionComponent positions[], SizeComponent sizes[], const int MAX_ECS_ENTITIES) {
+void RenderSystem::RenderMC(const TagComponent tags[], const PositionComponent positions[], const SizeComponent sizes[], const int MAX_ECS_ENTITIES) {
 
 	for (int i = 0; i < MAX_ECS_ENTITIES; ++i) {
 
@@ -66,7 +66,7 @@ void RenderSystem::RenderMC(TagComponent tags[], PositionComponent positions[], 
 	}
 }
 
-void RenderSystem::RenderSolids(TagComponent tags[], PositionComponent positions[], SizeComponent sizes[], const int MAX_ECS_ENTITIES) {
+void RenderSystem::RenderSolids(const TagComponent tags[], const PositionComponent positions[], const SizeComponent sizes[], const int MAX_ECS_ENTITIES) {
 
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color for solids
 

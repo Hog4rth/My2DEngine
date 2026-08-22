@@ -13,12 +13,12 @@ private:
 	SDL_Renderer* renderer = nullptr;
 
 	void RenderBackground();
-	void RenderMC(TagComponent tags[], PositionComponent positions[], SizeComponent sizes[], const int MAX_ECS_ENTITIES);
-	void RenderSolids(TagComponent tags[], PositionComponent positions[], SizeComponent sizes[], const int MAX_ECS_ENTITIES);
+	void RenderMC(const TagComponent tags[], const PositionComponent positions[], const SizeComponent sizes[], const int MAX_ECS_ENTITIES);
+	void RenderSolids(const TagComponent tags[], const PositionComponent positions[], const SizeComponent sizes[], const int MAX_ECS_ENTITIES);
 
 public:
 	bool InitializeRenderer(FileManager& fileManager);
-	void UpdateRender(TagComponent tags[], PositionComponent positions[], SizeComponent sizes[], const int MAX_ECS_ENTITIES);
+	void UpdateRender(const TagComponent tags[], const PositionComponent positions[], const SizeComponent sizes[], const int MAX_ECS_ENTITIES);
 	void Close();
 
 };

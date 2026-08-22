@@ -72,7 +72,7 @@ void GameEngine::Update() {
 
 // --- Tag Functions ---
 
-void GameEngine::CreatePlayer(int entityID, float positionX, float positionY, float width, float height) {
+void GameEngine::CreatePlayer(const int entityID, const float positionX, const float positionY, const float width, const float height) {
 
 	if (entityID < 0 || entityID >= MAX_ECS_ENTITIES) {
 		std::cerr << "Error: Entity ID " << entityID << " is out of bounds!\n";
@@ -87,7 +87,7 @@ void GameEngine::CreatePlayer(int entityID, float positionX, float positionY, fl
 	sizes[entityID].height = height;
 }
 
-void GameEngine::CreateSolid(int entityID, float positionX, float positionY, float width, float height) {
+void GameEngine::CreateSolid(const int entityID, const float positionX, const float positionY, const float width, const float height) {
 
 	if (entityID < 0 || entityID >= MAX_ECS_ENTITIES) {
 		std::cerr << "Error: Entity ID " << entityID << " is out of bounds!\n";

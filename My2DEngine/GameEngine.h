@@ -38,8 +38,8 @@ private:
 	// GAME LOOP
 	bool gameIsGoing = false;
 
-	void CreatePlayer(int entityID, float positionX, float positionY, float width, float height);
-	void CreateSolid(int entityID, float positionX, float positionY, float width, float height);
+	void CreatePlayer(const int entityID, const float positionX, const float positionY, const float width, const float height);
+	void CreateSolid(const int entityID, const float positionX, const float positionY, const float width, const float height);
 
 	void InitializeComponents();
 	void UpdateDeltaTime();
