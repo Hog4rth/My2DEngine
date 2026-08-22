@@ -7,7 +7,7 @@ int main(int argc, char* argv[]) {
     GameEngine engine;
 
     if (!engine.Initialize()) {
-        std::cerr << "GPU can't start up\n";
+        std::cerr << "Engine failed to initialize\n";
         return -1;
     }
 
