@@ -41,12 +41,12 @@ struct InputComponent{
 };
 
 struct VelocityComponent {
-	float vx = 0.0f;
-	float vy = 0.0f;
+	float velocityX = 0.0f;
+	float velocityY = 0.0f;
 
 	float acceleration = 3000.0f;
 	float gravity = 2000.0f;
-	float maxspeed = 800.0f;
+	float maxSpeed = 800.0f;
 	float friction = 8000.0f;
 	float jumpForceY = 1000.0f;
 	float jumpForceX = 1000.0f;

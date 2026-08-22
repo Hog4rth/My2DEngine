@@ -11,7 +11,7 @@ void MovementSystem::UpdatePosition(TagComponent tags[], PositionComponent posit
 			continue;
         }
 
-        positions[i].x += velocities[i].vx * deltaTime;
-        positions[i].y += velocities[i].vy * deltaTime;
+        positions[i].x += velocities[i].velocityX * deltaTime;
+        positions[i].y += velocities[i].velocityY * deltaTime;
     }
 }

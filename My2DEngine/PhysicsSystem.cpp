@@ -16,28 +16,28 @@ void PhysicsSystem::CalculateTrajectory(TagComponent tags[], InputComponent inpu
 
 			float currentDir = inputs[i].direction;
 
-			if (currentDir == 0 || (currentDir == 1 && velocities[i].vx < 0) || (currentDir == -1 && velocities[i].vx > 0)) { // Apply friction when no input is given or when the input direction is opposite to the current velocity
-				if (velocities[i].vx > 0) { // Apply friction going left
-					velocities[i].vx -= velocities[i].friction * deltaTime;
-					if (velocities[i].vx < 0) {
-						velocities[i].vx = 0;
+			if (currentDir == 0 || (currentDir == 1 && velocities[i].velocityX < 0) || (currentDir == -1 && velocities[i].velocityX > 0)) { // Apply friction when no input is given or when the input direction is opposite to the current velocity
+				if (velocities[i].velocityX > 0) { // Apply friction going left
+					velocities[i].velocityX -= velocities[i].friction * deltaTime;
+					if (velocities[i].velocityX < 0) {
+						velocities[i].velocityX = 0;
 					}
 				}
-				else if (velocities[i].vx < 0) { // Apply friction going right
-					velocities[i].vx += velocities[i].friction * deltaTime;
-					if (velocities[i].vx > 0) {
-						velocities[i].vx = 0;
+				else if (velocities[i].velocityX < 0) { // Apply friction going right
+					velocities[i].velocityX += velocities[i].friction * deltaTime;
+					if (velocities[i].velocityX > 0) {
+						velocities[i].velocityX = 0;
 					}
 				}
 			}
 			else {
-				velocities[i].vx += currentDir * velocities[i].acceleration * deltaTime; // Update velocity based on input direction and acceleration
+				velocities[i].velocityX += currentDir * velocities[i].acceleration * deltaTime; // Update velocity based on input direction and acceleration
 
-				if (velocities[i].vx > velocities[i].maxspeed) {
-					velocities[i].vx = velocities[i].maxspeed;
+				if (velocities[i].velocityX > velocities[i].maxSpeed) {
+					velocities[i].velocityX = velocities[i].maxSpeed;
 				}
-				else if (velocities[i].vx < -velocities[i].maxspeed) {
-					velocities[i].vx = -velocities[i].maxspeed;
+				else if (velocities[i].velocityX < -velocities[i].maxSpeed) {
+					velocities[i].velocityX = -velocities[i].maxSpeed;
 				}
 			}
 
@@ -75,21 +75,21 @@ void PhysicsSystem::CalculateTrajectory(TagComponent tags[], InputComponent inpu
 			if (inputs[i].jumpBufferTimer > 0) {
 
 				if (!colliders[i].isOnTheGround && colliders[i].onTheLeftWall) { // Left Wall Jump
-					velocities[i].vy = -velocities[i].jumpForceY;
-					velocities[i].vx = velocities[i].jumpForceX;
+					velocities[i].velocityY = -velocities[i].jumpForceY;
+					velocities[i].velocityX = velocities[i].jumpForceX;
 
 					inputs[i].jumpBufferTimer = 0;
 					colliders[i].jumpCoyoteTimer = 0;
 				}
 				else if (!colliders[i].isOnTheGround && colliders[i].onTheRightWall) { // Right Wall Jump
-					velocities[i].vy = -velocities[i].jumpForceY;
-					velocities[i].vx = -velocities[i].jumpForceX;
+					velocities[i].velocityY = -velocities[i].jumpForceY;
+					velocities[i].velocityX = -velocities[i].jumpForceX;
 
 					inputs[i].jumpBufferTimer = 0;
 					colliders[i].jumpCoyoteTimer = 0;
 				}
 				else if (colliders[i].jumpCoyoteTimer > 0) { // Ground jump
-					velocities[i].vy = -velocities[i].jumpForceY;
+					velocities[i].velocityY = -velocities[i].jumpForceY;
 
 					inputs[i].jumpBufferTimer = 0;
 					colliders[i].jumpCoyoteTimer = 0;
@@ -99,6 +99,6 @@ void PhysicsSystem::CalculateTrajectory(TagComponent tags[], InputComponent inpu
 		}
 
 		// --- Vertical Movement ---
-		velocities[i].vy += velocities[i].gravity * deltaTime; // Apply gravity
+		velocities[i].velocityY += velocities[i].gravity * deltaTime; // Apply gravity
 	}
 }
