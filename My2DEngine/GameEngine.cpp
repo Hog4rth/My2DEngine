@@ -16,7 +16,7 @@ bool GameEngine::Initialize() {
 
 void GameEngine::Run() {
 
-    lastTick = SDL_GetTicks();
+    lastTick = SDL_GetPerformanceCounter(); 
     gameIsGoing = true;
 
     while (gameIsGoing) {
@@ -48,9 +48,13 @@ void GameEngine::InitializeComponents() {
 
 void GameEngine::UpdateDeltaTime() {
 
-	Uint64 currentTick = SDL_GetTicks();
-	deltaTime = (currentTick - lastTick) / 1000.0f;
+	Uint64 currentTick = SDL_GetPerformanceCounter();
+    deltaTime = (float)(currentTick - lastTick) / (float)SDL_GetPerformanceFrequency();
 	lastTick = currentTick;
+
+    if (deltaTime <= 0.0f) {
+        deltaTime = 0.0001f;
+    }
 
 	// Delta Time Clamping
 	if (deltaTime > 0.05f) {
