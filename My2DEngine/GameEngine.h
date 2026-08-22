@@ -21,7 +21,6 @@ private:
 	// FILE NAMES
 	FileManager fileManager;
 	RenderSystem renderSystem;
-	InputSystem inputSystem;
 
 	// DELTA TIME
 	Uint64 lastTick = 0;

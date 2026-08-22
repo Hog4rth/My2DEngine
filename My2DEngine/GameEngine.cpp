@@ -22,7 +22,7 @@ void GameEngine::Run() {
     while (gameIsGoing) {
 
         UpdateDeltaTime();
-        gameIsGoing = inputSystem.ProcessInput(tags, inputs, MAX_ECS_ENTITIES);
+        gameIsGoing = InputSystem::ProcessInput(tags, inputs, MAX_ECS_ENTITIES);
         Update();
     }
 }
