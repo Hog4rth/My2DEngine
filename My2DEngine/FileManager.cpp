@@ -5,7 +5,7 @@
 #include "FileManager.h"
 
 void FileManager::LoadDefaultSettings() {
-	
+
 	std::ifstream file(filePath);
 
 	if (file.is_open()) {

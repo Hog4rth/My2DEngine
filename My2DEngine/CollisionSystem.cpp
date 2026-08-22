@@ -46,7 +46,7 @@ void CollisionSystem::UpdateCollisions(TagComponent tags[], PositionComponent po
 				positions[j].x + sizes[j].width > futurePositionX &&
 				futurePositionY + sizes[i].height > positions[j].y &&
 				positions[j].y + sizes[j].height > futurePositionY) { // if the future position.x and the future position.y of i-object is colliding with j-object
-																	  // Note: Now we can use future position.y because we have already adjusted the velocity.x if there was a collision in the previous step
+				// Note: Now we can use future position.y because we have already adjusted the velocity.x if there was a collision in the previous step
 
 				if (velocities[i].velocityY > 0) { // and if i-object is moving down
 					velocities[i].velocityY = (positions[j].y - positions[i].y - sizes[i].height) / deltaTime; // adjust the velocity to stop at the top edge of j-object

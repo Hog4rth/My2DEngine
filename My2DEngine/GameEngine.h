@@ -44,5 +44,5 @@ private:
 	void InitializeComponents();
 	void UpdateDeltaTime();
 	void Update();
-	
+
 };

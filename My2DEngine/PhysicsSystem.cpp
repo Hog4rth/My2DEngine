@@ -99,6 +99,6 @@ void PhysicsSystem::CalculateTrajectory(TagComponent tags[], InputComponent inpu
 		}
 
 		// --- Vertical Movement ---
-		velocities[i].velocityY +=	kinematics[i].gravity * deltaTime; // Apply gravity
+		velocities[i].velocityY += kinematics[i].gravity * deltaTime; // Apply gravity
 	}
 }

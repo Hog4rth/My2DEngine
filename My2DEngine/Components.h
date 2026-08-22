@@ -28,9 +28,9 @@ struct CollisionComponent {
 	bool isOnTheGround = false;
 };
 
-struct InputComponent{
+struct InputComponent {
 	float direction = 0.0f;
-	
+
 	bool wasJumping = false;
 	bool isJumping = false;
 };
