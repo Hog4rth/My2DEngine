@@ -26,6 +26,12 @@ public:
 				T valueFound;
 				std::stringstream Convert(keyFound);
 				Convert >> valueFound;
+
+				if (Convert.fail()) {
+					std::cerr << "Warning: Failed to convert value for key '" << key << "'. Using default value.\n";
+					return defaultValue;
+				}
+
 				return valueFound;
 			}
 		}
