@@ -33,7 +33,7 @@ void RenderSystem::UpdateRender(TagComponent tags[], PositionComponent positions
 
 	RenderBackground();
     RenderSolids(tags, positions, sizes, MAX_ECS_ENTITIES);
-    RenderMC(tags, positions, MAX_ECS_ENTITIES);
+    RenderMC(tags, positions, sizes, MAX_ECS_ENTITIES);
 
     SDL_RenderPresent(renderer);
 }
@@ -52,14 +52,14 @@ void RenderSystem::RenderBackground() {
     SDL_RenderClear(renderer);
 }
 
-void RenderSystem::RenderMC(TagComponent tags[], PositionComponent positions[], const int MAX_ECS_ENTITIES) {
+void RenderSystem::RenderMC(TagComponent tags[], PositionComponent positions[], SizeComponent sizes[], const int MAX_ECS_ENTITIES) {
 
     for (int i = 0; i < MAX_ECS_ENTITIES; ++i) {
 
         if (tags[i].id != EntityTag::Player) {
             continue;
         }
-        SDL_FRect Hogarth = {positions[i].x, positions[i].y, 50.0f, 50.0f }; // Main Character
+        SDL_FRect Hogarth = {positions[i].x, positions[i].y, sizes[i].width, sizes[i].height}; // Main Character
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red color for the MC
         SDL_RenderFillRect(renderer, &Hogarth);
         break;
