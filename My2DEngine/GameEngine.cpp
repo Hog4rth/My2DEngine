@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 #include "GameEngine.h"
 
 bool GameEngine::Initialize() {
@@ -69,6 +70,11 @@ void GameEngine::Update() {
 
 void GameEngine::CreatePlayer(int entityID, float positionX, float positionY, float width, float height) {
 
+    if(entityID < 0 || entityID >= MAX_ECS_ENTITIES) {
+		std::cerr << "Error: Entity ID " << entityID << " is out of bounds!\n";
+        return;
+    }
+
     tags[entityID].id = EntityTag::Player;
     velocities[entityID].canItMove = true;
     positions[entityID].x = positionX;
@@ -78,6 +84,11 @@ void GameEngine::CreatePlayer(int entityID, float positionX, float positionY, fl
 }
 
 void GameEngine::CreateSolid(int entityID, float positionX, float positionY, float width, float height) {
+
+    if(entityID < 0 || entityID >= MAX_ECS_ENTITIES) {
+        std::cerr << "Error: Entity ID " << entityID << " is out of bounds!\n";
+        return;
+    }
 
     tags[entityID].id = EntityTag::Solid;
     colliders[entityID].isSolid = true;
