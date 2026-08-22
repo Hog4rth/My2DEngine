@@ -1,7 +1,7 @@
 #include "PhysicsSystem.h"
 
-void PhysicsSystem::CalculateTrajectory(const TagComponent tags[], const InputComponent inputs[], const CollisionComponent colliders[], VelocityComponent velocities[], KinematicComponent kinematics[], const float deltaTime, const int MAX_ECS_ENTITIES) {
-	for (int i = 0; i < MAX_ECS_ENTITIES; ++i) {
+void PhysicsSystem::CalculateTrajectory(std::span<const TagComponent> tags, std::span<const InputComponent> inputs, std::span<const CollisionComponent> colliders, std::span<VelocityComponent> velocities, std::span<KinematicComponent> kinematics, const float deltaTime) {
+	for (size_t i = 0; i < tags.size(); ++i) {
 
 		if (tags[i].id == EntityTag::None) {
 			continue;

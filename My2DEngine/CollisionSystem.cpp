@@ -1,8 +1,8 @@
 #include "CollisionSystem.h"
 
-void CollisionSystem::UpdateCollisions(const TagComponent tags[], const PositionComponent positions[], const SizeComponent sizes[], CollisionComponent colliders[], VelocityComponent velocities[], const float deltaTime, const int MAX_ECS_ENTITIES) {
+void CollisionSystem::UpdateCollisions(std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes, std::span<CollisionComponent> colliders, std::span<VelocityComponent> velocities, const float deltaTime) {
 
-	for (int i = 0; i < MAX_ECS_ENTITIES; ++i) {
+	for (size_t i = 0; i < tags.size(); ++i) {
 
 		if (tags[i].id == EntityTag::None) {
 			continue;
@@ -17,7 +17,7 @@ void CollisionSystem::UpdateCollisions(const TagComponent tags[], const Position
 		colliders[i].isOnTheGround = false;
 
 
-		for (int j = 0; j < MAX_ECS_ENTITIES; ++j) {
+		for (size_t j = 0; j < colliders.size(); ++j) {
 			if (i == j || !colliders[j].isSolid) { // check if j-object is solid and not the same as i-object
 				continue;
 			}

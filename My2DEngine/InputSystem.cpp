@@ -1,7 +1,7 @@
 #include <iostream>
 #include "InputSystem.h"
 
-bool InputSystem::ProcessInput(const TagComponent tags[], InputComponent inputs[], const int MAX_ECS_ENTITIES) {
+bool InputSystem::ProcessInput(std::span<const TagComponent> tags, std::span<InputComponent> inputs) {
 
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
@@ -16,7 +16,7 @@ bool InputSystem::ProcessInput(const TagComponent tags[], InputComponent inputs[
 	float currentDirectionX = (float)state[SDL_SCANCODE_D] - state[SDL_SCANCODE_A]; // Calculate direction based on key states
 	bool isJumpKeyPressed = (bool)state[SDL_SCANCODE_SPACE];
 
-	for (int i = 0; i < MAX_ECS_ENTITIES; ++i) {
+	for (size_t i = 0; i < tags.size(); ++i) {
 
 		if (tags[i].id != EntityTag::Player) {
 			continue;

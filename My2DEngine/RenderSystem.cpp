@@ -29,11 +29,11 @@ bool RenderSystem::InitializeRenderer(FileManager& fileManager) {
 	return true;
 }
 
-void RenderSystem::UpdateRender(const TagComponent tags[], const PositionComponent positions[], const SizeComponent sizes[], const int MAX_ECS_ENTITIES) {
+void RenderSystem::UpdateRender(std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes) {
 
 	RenderBackground();
-	RenderSolids(tags, positions, sizes, MAX_ECS_ENTITIES);
-	RenderMC(tags, positions, sizes, MAX_ECS_ENTITIES);
+	RenderSolids(tags, positions, sizes);
+	RenderMC(tags, positions, sizes);
 
 	SDL_RenderPresent(renderer);
 }
@@ -52,9 +52,9 @@ void RenderSystem::RenderBackground() {
 	SDL_RenderClear(renderer);
 }
 
-void RenderSystem::RenderMC(const TagComponent tags[], const PositionComponent positions[], const SizeComponent sizes[], const int MAX_ECS_ENTITIES) {
+void RenderSystem::RenderMC(std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes) {
 
-	for (int i = 0; i < MAX_ECS_ENTITIES; ++i) {
+	for (size_t i = 0; i < tags.size(); ++i) {
 
 		if (tags[i].id != EntityTag::Player) {
 			continue;
@@ -66,11 +66,11 @@ void RenderSystem::RenderMC(const TagComponent tags[], const PositionComponent p
 	}
 }
 
-void RenderSystem::RenderSolids(const TagComponent tags[], const PositionComponent positions[], const SizeComponent sizes[], const int MAX_ECS_ENTITIES) {
+void RenderSystem::RenderSolids(std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes) {
 
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color for solids
 
-	for (int i = 0; i < MAX_ECS_ENTITIES; ++i) {
+	for (size_t i = 0; i < tags.size(); ++i) {
 
 		if (tags[i].id != EntityTag::Solid) {
 			continue;

@@ -1,7 +1,7 @@
 #include "MovementSystem.h"
 
-void MovementSystem::UpdatePosition(const TagComponent tags[], PositionComponent positions[], const VelocityComponent velocities[], const float deltaTime, const int MAX_ECS_ENTITIES) {
-	for (int i = 0; i < MAX_ECS_ENTITIES; ++i) {
+void MovementSystem::UpdatePosition(std::span<const TagComponent> tags, std::span<PositionComponent> positions, std::span<const VelocityComponent> velocities, const float deltaTime) {
+	for (size_t i = 0; i < tags.size(); ++i) {
 
 		if (tags[i].id == EntityTag::None) {
 			continue;

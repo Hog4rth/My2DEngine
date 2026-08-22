@@ -1,4 +1,5 @@
 #pragma once
+#include <span>
 
 enum class EntityTag {
 	Player,

@@ -22,7 +22,7 @@ void GameEngine::Run() {
 	while (gameIsGoing) {
 
 		UpdateDeltaTime();
-		gameIsGoing = InputSystem::ProcessInput(tags, inputs, MAX_ECS_ENTITIES);
+		gameIsGoing = InputSystem::ProcessInput(tags, inputs);
 		Update();
 	}
 }
@@ -64,10 +64,10 @@ void GameEngine::UpdateDeltaTime() {
 
 void GameEngine::Update() {
 
-	PhysicsSystem::CalculateTrajectory(tags, inputs, colliders, velocities, kinematics, deltaTime, MAX_ECS_ENTITIES);
-	CollisionSystem::UpdateCollisions(tags, positions, sizes, colliders, velocities, deltaTime, MAX_ECS_ENTITIES);
-	MovementSystem::UpdatePosition(tags, positions, velocities, deltaTime, MAX_ECS_ENTITIES);
-	renderSystem.UpdateRender(tags, positions, sizes, MAX_ECS_ENTITIES);
+	PhysicsSystem::CalculateTrajectory(tags, inputs, colliders, velocities, kinematics, deltaTime);
+	CollisionSystem::UpdateCollisions(tags, positions, sizes, colliders, velocities, deltaTime);
+	MovementSystem::UpdatePosition(tags, positions, velocities, deltaTime);
+	renderSystem.UpdateRender(tags, positions, sizes);
 }
 
 // --- Tag Functions ---

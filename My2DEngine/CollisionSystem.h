@@ -3,6 +3,6 @@
 
 class CollisionSystem {
 public:
-	static void UpdateCollisions(const TagComponent tags[], const PositionComponent positions[], const SizeComponent sizes[], CollisionComponent colliders[], VelocityComponent velocities[], const float deltaTime, const int MAX_ECS_ENTITIES);
+	static void UpdateCollisions(std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes, std::span<CollisionComponent> colliders, std::span<VelocityComponent> velocities, const float deltaTime);
 
 };
