@@ -7,5 +7,5 @@ private:
 	SDL_Event event;
 
 public:
-	bool ProcessInput(TagComponent tags[], CollisionComponent colliders[], InputComponent inputs[], const int MAX_ECS_ENTITIES);
+	bool ProcessInput(TagComponent tags[], InputComponent inputs[], const int MAX_ECS_ENTITIES);
 };

@@ -1,7 +1,7 @@
 #include <iostream>
 #include "InputManager.h"
 
-bool InputManager::ProcessInput(TagComponent tags[], CollisionComponent colliders[], InputComponent inputs[], const int MAX_ECS_ENTITIES) {
+bool InputManager::ProcessInput(TagComponent tags[], InputComponent inputs[], const int MAX_ECS_ENTITIES) {
     
     while (SDL_PollEvent(&event)) {
 

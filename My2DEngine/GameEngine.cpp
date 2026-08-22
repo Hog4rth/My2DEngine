@@ -21,7 +21,7 @@ void GameEngine::Run() {
     while (gameIsGoing) {
 
         UpdateDeltaTime();
-        gameIsGoing = inputManager.ProcessInput(tags, colliders, inputs, MAX_ECS_ENTITIES);
+        gameIsGoing = inputManager.ProcessInput(tags, inputs, MAX_ECS_ENTITIES);
         Update();
     }
 }
