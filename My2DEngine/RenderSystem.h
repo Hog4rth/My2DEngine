@@ -11,7 +11,6 @@ private:
 
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	SDL_FRect solid = { 0.0f, 0.0f, 50.0f, 50.0f };
 
 	void RenderBackground();
 	void RenderMC(TagComponent tags[], PositionComponent positions[], SizeComponent sizes[], const int MAX_ECS_ENTITIES);

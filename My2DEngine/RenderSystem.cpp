@@ -76,7 +76,7 @@ void RenderSystem::RenderSolids(TagComponent tags[], PositionComponent positions
 			continue;
 		}
 
-		solid = { positions[i].x, positions[i].y, sizes[i].width, sizes[i].height };
+		SDL_FRect solid = {positions[i].x, positions[i].y, sizes[i].width, sizes[i].height};
 		SDL_RenderFillRect(renderer, &solid);
 	}
 }
