@@ -23,6 +23,6 @@ void FileManager::LoadDefaultSettings() {
 		file.close();
 	}
 	else {
-		std::cout << "Warning: Config file not found! Using default settings.\n";
+		std::cerr << "Warning: Config file not found! Using default settings.\n";
 	}
 }
