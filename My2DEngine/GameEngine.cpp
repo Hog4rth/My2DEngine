@@ -67,22 +67,22 @@ void GameEngine::Update() {
 
 // --- Tag Functions ---
 
-void GameEngine::CreatePlayer(int entityID, float PositionX, float PositionY, float width, float height) {
+void GameEngine::CreatePlayer(int entityID, float positionX, float positionY, float width, float height) {
 
     tags[entityID].id = EntityTag::Player;
     velocities[entityID].canItMove = true;
-    positions[entityID].x = PositionX;
-    positions[entityID].y = PositionY;
+    positions[entityID].x = positionX;
+    positions[entityID].y = positionY;
     sizes[entityID].width = width;
     sizes[entityID].height = height;
 }
 
-void GameEngine::CreateSolid(int entityID, float PositionX, float PositionY, float width, float height) {
+void GameEngine::CreateSolid(int entityID, float positionX, float positionY, float width, float height) {
 
     tags[entityID].id = EntityTag::Solid;
     colliders[entityID].isSolid = true;
-    positions[entityID].x = PositionX;
-    positions[entityID].y = PositionY;
+    positions[entityID].x = positionX;
+    positions[entityID].y = positionY;
     sizes[entityID].width = width;
     sizes[entityID].height = height;
 

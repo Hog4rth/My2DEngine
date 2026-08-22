@@ -21,7 +21,8 @@ public:
 			if constexpr (std::is_same_v<T, std::string>) {
 				return keyFound;
 			
-			} else {
+			} 
+			else {
 				T valueFound;
 				std::stringstream Convert(keyFound);
 				Convert >> valueFound;

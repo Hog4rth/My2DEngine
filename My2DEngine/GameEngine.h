@@ -39,8 +39,8 @@ private:
 	// GAME LOOP
 	bool gameIsGoing = false;
 
-	void CreatePlayer(int entityID, float PositionX, float PositionY, float width, float height);
-	void CreateSolid(int entityID, float PositionX, float PositionY, float width, float height);
+	void CreatePlayer(int entityID, float positionX, float positionY, float width, float height);
+	void CreateSolid(int entityID, float positionX, float positionY, float width, float height);
 
 	void InitializeComponents();
 	void UpdateDeltaTime();
