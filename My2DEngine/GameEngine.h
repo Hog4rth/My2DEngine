@@ -4,7 +4,7 @@
 #include "MovementSystem.h"
 #include "FileManager.h"
 #include "RenderSystem.h"
-#include "InputManager.h"
+#include "InputSystem.h"
 #include "CollisionSystem.h"
 #include "PhysicsSystem.h"
 
@@ -21,7 +21,7 @@ private:
 	// FILE NAMES
 	FileManager fileManager;
 	RenderSystem renderSystem;
-	InputManager inputManager;
+	InputSystem inputSystem;
 
 	// DELTA TIME
 	Uint64 lastTick = 0;

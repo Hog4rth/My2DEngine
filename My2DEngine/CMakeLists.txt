@@ -15,8 +15,8 @@ add_executable(My2DEngine
     "FileManager.cpp" 
     "RenderSystem.h" 
     "RenderSystem.cpp"
-    "InputManager.h"
-    "InputManager.cpp"
+    "InputSystem.h"
+    "InputSystem.cpp"
     "CollisionSystem.h"
     "CollisionSystem.cpp" "PhysicsSystem.h" "PhysicsSystem.cpp") 
 
