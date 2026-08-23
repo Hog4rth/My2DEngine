@@ -3,6 +3,7 @@
 #include <sstream>
 #include <iostream>
 #include <string_view>
+#include <type_traits>
 
 class FileManager {
 public:
