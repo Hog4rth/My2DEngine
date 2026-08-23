@@ -1,6 +1,8 @@
 #pragma once
 #include <map>
 #include <sstream>
+#include <iostream>
+#include <string_view>
 
 class FileManager {
 public:
