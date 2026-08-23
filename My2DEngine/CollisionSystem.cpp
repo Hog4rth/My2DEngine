@@ -27,7 +27,7 @@ void CollisionSystem::UpdateCollisions(std::span<const TagComponent> tags, std::
 		colliders[i].isOnTheGround = false;
 
 
-		for (size_t j = 0; j < colliders.size(); ++j) {
+		for (size_t j = 0; j < tags.size(); ++j) {
 			if (i == j || !colliders[j].isSolid) { // check if j-object is solid and not the same as i-object
 				continue;
 			}
