@@ -31,8 +31,8 @@ bool RenderSystem::InitializeRenderer(FileManager& fileManager) {
 void RenderSystem::UpdateRender(std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes) {
 
 	RenderBackground();
-	RenderSolids(tags, positions, sizes);
-	RenderMC(tags, positions, sizes);
+	RenderEntitiesByTag(EntityTag::Solid, 0, 255, 0, 255, tags, positions, sizes);
+	RenderEntitiesByTag(EntityTag::Player, 255, 0, 0, 255, tags, positions, sizes);
 
 	SDL_RenderPresent(renderer.get());
 }
@@ -49,31 +49,17 @@ void RenderSystem::RenderBackground() {
 	SDL_RenderClear(renderer.get());
 }
 
-void RenderSystem::RenderMC(std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes) {
+
+void RenderSystem::RenderEntitiesByTag(const EntityTag targetTag, const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a, std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes) {
+
+	SDL_SetRenderDrawColor(renderer.get(), r, g, b, a);
 
 	for (size_t i = 0; i < tags.size(); ++i) {
-
-		if (tags[i].id != EntityTag::Player) {
-			continue;
-		}
-		SDL_FRect Hogarth = { positions[i].x, positions[i].y, sizes[i].width, sizes[i].height }; // Main Character
-		SDL_SetRenderDrawColor(renderer.get(), 255, 0, 0, 255); // Red color for the MC
-		SDL_RenderFillRect(renderer.get(), &Hogarth);
-		break;
-	}
-}
-
-void RenderSystem::RenderSolids(std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes) {
-
-	SDL_SetRenderDrawColor(renderer.get(), 0, 255, 0, 255); // Green color for solids
-
-	for (size_t i = 0; i < tags.size(); ++i) {
-
-		if (tags[i].id != EntityTag::Solid) {
+		if (tags[i].id != targetTag) {
 			continue;
 		}
 
-		SDL_FRect solid = { positions[i].x, positions[i].y, sizes[i].width, sizes[i].height };
-		SDL_RenderFillRect(renderer.get(), &solid);
+		SDL_FRect rect = { positions[i].x, positions[i].y, sizes[i].width, sizes[i].height };
+		SDL_RenderFillRect(renderer.get(), &rect);
 	}
 }

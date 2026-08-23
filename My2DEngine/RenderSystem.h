@@ -19,7 +19,6 @@ private:
 	std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> renderer{ nullptr, SDL_DestroyRenderer };
 
 	void RenderBackground();
-	void RenderMC(std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes);
-	void RenderSolids(std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes);
+	void RenderEntitiesByTag(const EntityTag targetTag, const Uint8 r, const Uint8 g, const Uint8 b, const Uint8 a, std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes);
 
 };
