@@ -22,6 +22,7 @@ bool RenderSystem::InitializeRenderer(FileManager& fileManager) {
 	renderer.reset(SDL_CreateRenderer(window.get(), nullptr));
 	if (renderer == nullptr) {
 		std::cerr << "Error CreateRenderer: " << SDL_GetError() << "\n";
+		window.reset();
 		SDL_Quit();
 		return false;
 	}
@@ -39,6 +40,8 @@ void RenderSystem::UpdateRender(std::span<const TagComponent> tags, std::span<co
 
 void RenderSystem::Close() {
 
+	renderer.reset();
+	window.reset();
 	SDL_Quit();
 }
 
