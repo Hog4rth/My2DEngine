@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL3/SDL.h>
+#include <memory>
 #include "Components.h"
 #include "FileManager.h"
 
@@ -14,8 +15,8 @@ private:
 	int height = 600;
 	std::string title = "My 2D Engine";
 
-	SDL_Window* window = nullptr;
-	SDL_Renderer* renderer = nullptr;
+	std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)> window{ nullptr, SDL_DestroyWindow };
+	std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> renderer{ nullptr, SDL_DestroyRenderer };
 
 	void RenderBackground();
 	void RenderMC(std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes);
