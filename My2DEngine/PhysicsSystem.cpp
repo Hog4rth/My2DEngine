@@ -15,7 +15,7 @@ void PhysicsSystem::CalculateTrajectory(std::span<const TagComponent> tags, std:
 
 			CalculateHorizontalVelocity(inputs[i].direction, velocities[i], kinematics[i], deltaTime);
 			UpdateJumpTimers(colliders[i], inputs[i], kinematics[i], deltaTime);
-			CalculateVerticalVelocity(inputs[i].direction, colliders[i], velocities[i], kinematics[i], deltaTime);
+			CalculateVerticalVelocity(colliders[i], velocities[i], kinematics[i]);
 
 		}
 
@@ -87,7 +87,7 @@ void PhysicsSystem::UpdateJumpTimers(const CollisionComponent& collider, const I
 
 }
 
-void PhysicsSystem::CalculateVerticalVelocity(const float currentDirection, const CollisionComponent& collider, VelocityComponent& velocity, KinematicComponent& kinematic, const float deltaTime) {
+void PhysicsSystem::CalculateVerticalVelocity(const CollisionComponent& collider, VelocityComponent& velocity, KinematicComponent& kinematic) {
 
 	if (kinematic.jumpBufferTimer > 0) {
 
