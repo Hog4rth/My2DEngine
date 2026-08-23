@@ -13,13 +13,13 @@ struct TagComponent {
 };
 
 struct PositionComponent {
-	float x = 300.0f;
-	float y = 500.0f;
+	float x = 0.0f;
+	float y = 0.0f;
 };
 
 struct SizeComponent {
-	float width = 100.0f;
-	float height = 20.0f;
+	float width = 0.0f;
+	float height = 0.0f;
 };
 
 struct CollisionComponent {
