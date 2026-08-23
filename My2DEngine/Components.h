@@ -44,12 +44,12 @@ struct VelocityComponent {
 };
 
 struct KinematicComponent {
-	float acceleration = 3000.0f;
-	float gravity = 2000.0f;
-	float maxSpeed = 800.0f;
-	float friction = 8000.0f;
-	float jumpForceY = 1000.0f;
-	float jumpForceX = 1000.0f;
+	float acceleration = 0.0f;
+	float gravity = 0.0f;
+	float maxSpeed = 0.0f;
+	float friction = 0.0f;
+	float jumpForceY = 0.0f;
+	float jumpForceX = 0.0f;
 
 	float jumpBufferTimer = 0.0f;
 	float jumpBufferDuration = 0.15f; // 0.15 seconds

@@ -4,7 +4,7 @@
 #include <filesystem>
 #include "FileManager.h"
 
-void FileManager::LoadDefaultSettings() {
+void FileManager::LoadFile() {
 
 	std::ifstream file(filePath);
 
@@ -26,7 +26,7 @@ void FileManager::LoadDefaultSettings() {
 				trim(key);
 				trim(value);
 
-				defaultSettings[key] = value;
+				dataMap[key] = value;
 			}
 		}
 		file.close();

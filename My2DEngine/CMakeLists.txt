@@ -62,11 +62,13 @@ add_custom_command(
     COMMAND_EXPAND_LISTS
 )
 
-# Copy the Settings.ini file to the output directory of the executable
+# Copy the .ini files to the output directory of the executable
 add_custom_command(
     TARGET My2DEngine POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
     "${CMAKE_CURRENT_SOURCE_DIR}/Settings.ini"
     "$<TARGET_FILE_DIR:My2DEngine>"
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different
+	"${CMAKE_CURRENT_SOURCE_DIR}/Physics.ini"
+	"$<TARGET_FILE_DIR:My2DEngine>"
 )
-

@@ -7,13 +7,15 @@
 
 class FileManager {
 public:
-	void LoadDefaultSettings();
+	explicit FileManager(std::string_view path) : filePath(path) {}
+
+	void LoadFile();
 
 	template <typename T>
 	T Load(std::string_view key, const T defaultValue) {
 
-		auto it = defaultSettings.find(key);
-		if (it == defaultSettings.end()) {
+		auto it = dataMap.find(key);
+		if (it == dataMap.end()) {
 			return defaultValue;
 		}
 
@@ -37,7 +39,7 @@ public:
 	}
 
 private:
-	std::map<std::string, std::string, std::less<>> defaultSettings;
-	const std::string filePath = "Settings.ini";
+	std::map<std::string, std::string, std::less<>> dataMap;
+	std::string filePath;
 
 };

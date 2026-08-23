@@ -20,7 +20,9 @@ private:
 	static constexpr int MAX_ECS_ENTITIES = 7;
 
 	// FILE NAMES
-	FileManager fileManager;
+	FileManager userSettings{ "Settings.ini" };
+	FileManager physicsSettings{ "Physics.ini" };
+
 	RenderSystem renderSystem;
 
 	// DELTA TIME

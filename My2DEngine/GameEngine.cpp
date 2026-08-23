@@ -3,11 +3,12 @@
 
 bool GameEngine::Initialize() {
 
+	userSettings.LoadFile();
+	physicsSettings.LoadFile();
+
 	InitializeComponents();
 
-	fileManager.LoadDefaultSettings();
-
-	if (!renderSystem.InitializeRenderer(fileManager)) {
+	if (!renderSystem.InitializeRenderer(userSettings)) {
 		return false;
 	}
 	return true;
@@ -70,7 +71,7 @@ void GameEngine::Update() {
 	renderSystem.UpdateRender(tags, positions, sizes);
 }
 
-// --- Tag Functions ---
+// --- Tag Functions --- **In the future the function will be removed and all the info will be stored in different .ini files (Player.ini, Solid.ini...)**
 
 void GameEngine::CreatePlayer(const int entityID, const float positionX, const float positionY, const float width, const float height) {
 
@@ -85,6 +86,16 @@ void GameEngine::CreatePlayer(const int entityID, const float positionX, const f
 	positions[entityID].y = positionY;
 	sizes[entityID].width = width;
 	sizes[entityID].height = height;
+
+	kinematics[entityID].acceleration = physicsSettings.Load<float>("Acceleration", 3000.0f);
+	kinematics[entityID].gravity = physicsSettings.Load<float>("Gravity", 2000.0f);
+	kinematics[entityID].maxSpeed = physicsSettings.Load<float>("MaxSpeed", 800.0f);
+	kinematics[entityID].friction = physicsSettings.Load<float>("Friction", 8000.0f);
+	kinematics[entityID].jumpForceY = physicsSettings.Load<float>("JumpForceY", 1000.0f);
+	kinematics[entityID].jumpForceX = physicsSettings.Load<float>("JumpForceX", 1000.0f);
+	kinematics[entityID].jumpBufferDuration = physicsSettings.Load<float>("JumpBufferDuration", 0.15f);
+	kinematics[entityID].jumpCoyoteDuration = physicsSettings.Load<float>("JumpCoyoteDuration", 0.1f);
+
 }
 
 void GameEngine::CreateSolid(const int entityID, const float positionX, const float positionY, const float width, const float height) {
