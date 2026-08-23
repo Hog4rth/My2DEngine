@@ -4,6 +4,11 @@
 #include "FileManager.h"
 
 class RenderSystem {
+public:
+	bool InitializeRenderer(FileManager& fileManager);
+	void UpdateRender(std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes);
+	void Close();
+
 private:
 	int width = 800;
 	int height = 600;
@@ -15,10 +20,5 @@ private:
 	void RenderBackground();
 	void RenderMC(std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes);
 	void RenderSolids(std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes);
-
-public:
-	bool InitializeRenderer(FileManager& fileManager);
-	void UpdateRender(std::span<const TagComponent> tags, std::span<const PositionComponent> positions, std::span<const SizeComponent> sizes);
-	void Close();
 
 };

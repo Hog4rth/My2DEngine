@@ -3,10 +3,6 @@
 #include <sstream>
 
 class FileManager {
-private:
-	std::map<std::string, std::string, std::less<>> defaultSettings;
-	const std::string filePath = "Settings.ini";
-
 public:
 	void LoadDefaultSettings();
 
@@ -36,4 +32,9 @@ public:
 			return valueFound;
 		}
 	}
+
+private:
+	std::map<std::string, std::string, std::less<>> defaultSettings;
+	const std::string filePath = "Settings.ini";
+
 };
