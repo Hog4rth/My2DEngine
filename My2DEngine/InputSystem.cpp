@@ -1,4 +1,4 @@
-#include <iostream>
+#include <SDL3/SDL.h>
 #include "InputSystem.h"
 
 bool InputSystem::ProcessInput(std::span<const TagComponent> tags, std::span<InputComponent> inputs) {

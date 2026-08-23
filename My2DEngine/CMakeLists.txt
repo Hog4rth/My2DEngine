@@ -1,10 +1,9 @@
-﻿# CMakeLists.txt: CMake project for My2DEngine.
+# CMakeLists.txt: CMake project for My2DEngine.
 
 # ==========================================
 # DEFINING THE PROJECT AND ITS SOURCES
 # ==========================================
-add_executable(My2DEngine 
-    "My2DEngine.h" 
+add_executable(My2DEngine  
     "My2DEngine.cpp" 
     "GameEngine.h" 
     "GameEngine.cpp" 
