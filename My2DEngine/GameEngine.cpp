@@ -15,7 +15,7 @@ bool GameEngine::Initialize() {
 
 void GameEngine::Run() {
 
-	lastTick = SDL_GetPerformanceCounter();
+	lastTick = std::chrono::steady_clock::now();
 	gameIsGoing = true;
 
 	while (gameIsGoing) {
@@ -47,8 +47,9 @@ void GameEngine::InitializeComponents() {
 
 void GameEngine::UpdateDeltaTime() {
 
-	Uint64 currentTick = SDL_GetPerformanceCounter();
-	deltaTime = (float)(currentTick - lastTick) / (float)SDL_GetPerformanceFrequency();
+	auto currentTick = std::chrono::steady_clock::now();
+	std::chrono::duration<float> elapsed = currentTick - lastTick;
+	deltaTime = elapsed.count();
 	lastTick = currentTick;
 
 	if (deltaTime <= 0.0f) {

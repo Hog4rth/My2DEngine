@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL3/SDL.h>
+#include <chrono>
 #include "Components.h"
 #include "MovementSystem.h"
 #include "FileManager.h"
@@ -23,7 +24,7 @@ private:
 	RenderSystem renderSystem;
 
 	// DELTA TIME
-	Uint64 lastTick = 0;
+	std::chrono::steady_clock::time_point lastTick;
 	float deltaTime = 0.0f;
 
 	// COMPONENTS
