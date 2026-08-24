@@ -90,24 +90,24 @@ void PhysicsSystem::UpdateJumpTimers(const CollisionComponent& collider, const I
 void PhysicsSystem::CalculateVerticalVelocity(const CollisionComponent& collider, VelocityComponent& velocity, KinematicComponent& kinematic) {
 
 	if (kinematic.jumpBufferTimer > 0) {
+		bool hasJumped = false;
 
 		if (!collider.isOnTheGround && collider.onTheLeftWall) { // Left Wall Jump
 			velocity.velocityY = -kinematic.jumpForceY;
 			velocity.velocityX = kinematic.jumpForceX;
-
-			kinematic.jumpBufferTimer = 0;
-			kinematic.jumpCoyoteTimer = 0;
+			hasJumped = true;
 		}
 		else if (!collider.isOnTheGround && collider.onTheRightWall) { // Right Wall Jump
 			velocity.velocityY = -kinematic.jumpForceY;
 			velocity.velocityX = -kinematic.jumpForceX;
-
-			kinematic.jumpBufferTimer = 0;
-			kinematic.jumpCoyoteTimer = 0;
+			hasJumped = true;
 		}
 		else if (kinematic.jumpCoyoteTimer > 0) { // Ground jump
 			velocity.velocityY = -kinematic.jumpForceY;
+			hasJumped = true;
+		}
 
+		if (hasJumped) {
 			kinematic.jumpBufferTimer = 0;
 			kinematic.jumpCoyoteTimer = 0;
 		}

@@ -48,6 +48,7 @@ void RenderSystem::Close() {
 //---Helpers---
 
 void RenderSystem::RenderBackground() {
+
 	SDL_SetRenderDrawColor(renderer.get(), 0, 0, 0, 255); // Black background
 	SDL_RenderClear(renderer.get());
 }

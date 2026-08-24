@@ -16,8 +16,8 @@ bool GameEngine::Initialize() {
 
 void GameEngine::Run() {
 
-	lastTick = std::chrono::steady_clock::now();
 	gameIsGoing = true;
+	lastTick = std::chrono::steady_clock::now();
 
 	while (gameIsGoing) {
 
@@ -53,11 +53,11 @@ void GameEngine::UpdateDeltaTime() {
 	deltaTime = elapsed.count();
 	lastTick = currentTick;
 
+	// Delta Time Clamping
 	if (deltaTime <= 0.0f) {
 		deltaTime = 0.0001f;
 	}
 
-	// Delta Time Clamping
 	if (deltaTime > 0.05f) {
 		deltaTime = 0.05f; // 20 FPS
 	}
