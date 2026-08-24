@@ -1,5 +1,4 @@
 #pragma once
-#include <SDL3/SDL.h>
 #include <chrono>
 #include "Components.h"
 #include "MovementSystem.h"
