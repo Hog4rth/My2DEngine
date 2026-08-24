@@ -13,8 +13,8 @@ bool InputSystem::ProcessInput(std::span<const TagComponent> tags, std::span<Inp
 
 	const bool* state = SDL_GetKeyboardState(nullptr);
 
-	float currentDirectionX = (float)state[SDL_SCANCODE_D] - state[SDL_SCANCODE_A]; // Calculate direction based on key states
-	bool isJumpKeyPressed = (bool)state[SDL_SCANCODE_SPACE];
+	float currentDirectionX = static_cast<float>(state[SDL_SCANCODE_D]) - static_cast<float>(state[SDL_SCANCODE_A]); // Calculate direction based on key states
+	bool isJumpKeyPressed = state[SDL_SCANCODE_SPACE];
 
 	for (size_t i = 0; i < tags.size(); ++i) {
 
