@@ -21,6 +21,10 @@ void PhysicsSystem::CalculateTrajectory(std::span<const TagComponent> tags, std:
 
 		// Apply gravity
 		velocities[i].velocityY += kinematics[i].gravity * deltaTime;
+
+		if (velocities[i].velocityY >= kinematics[i].maxSpeedY) {
+			velocities[i].velocityY = kinematics[i].maxSpeedY;
+		}
 	}
 }
 
@@ -99,11 +103,11 @@ void PhysicsSystem::CalculateHorizontalVelocity(const float currentDirection, co
 		}
 	}
 
-	if (velocity.velocityX > kinematic.maxSpeed) {
-		velocity.velocityX = kinematic.maxSpeed;
+	if (velocity.velocityX > kinematic.maxSpeedX) {
+		velocity.velocityX = kinematic.maxSpeedX;
 	}
-	else if (velocity.velocityX < -kinematic.maxSpeed) {
-		velocity.velocityX = -kinematic.maxSpeed;
+	else if (velocity.velocityX < -kinematic.maxSpeedX) {
+		velocity.velocityX = -kinematic.maxSpeedX;
 	}
 }
 

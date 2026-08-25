@@ -89,7 +89,8 @@ void GameEngine::CreatePlayer(const int entityID, const float positionX, const f
 
 	kinematics[entityID].acceleration = physicsSettings.Load<float>("Acceleration", 3000.0f);
 	kinematics[entityID].gravity = physicsSettings.Load<float>("Gravity", 2000.0f);
-	kinematics[entityID].maxSpeed = physicsSettings.Load<float>("MaxSpeed", 800.0f);
+	kinematics[entityID].maxSpeedX = physicsSettings.Load<float>("MaxSpeedX", 800.0f);
+	kinematics[entityID].maxSpeedY = physicsSettings.Load<float>("MaxSpeedY", 5000.0f);
 	kinematics[entityID].friction = physicsSettings.Load<float>("Friction", 8000.0f);
 	kinematics[entityID].jumpForceY = physicsSettings.Load<float>("JumpForceY", 1000.0f);
 	kinematics[entityID].jumpForceX = physicsSettings.Load<float>("JumpForceX", 1000.0f);
