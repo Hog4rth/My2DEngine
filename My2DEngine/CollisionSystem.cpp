@@ -64,6 +64,20 @@ void CollisionSystem::UpdateCollisions(std::span<const TagComponent> tags, std::
 					velocities[i].velocityY = (positions[j].y + sizes[j].height - positions[i].y) / deltaTime; // adjust the velocity to stop at the bottom edge of j-object
 				}
 			}
+
+			if (velocities[i].velocityX == 0) {
+
+				float collisionTolerance = 1.0f;
+				Rect sensorLeft = { positions[i].x - collisionTolerance, positions[i].y, collisionTolerance, sizes[i].height };
+				Rect sensorRight = { positions[i].x + sizes[i].width, positions[i].y, collisionTolerance, sizes[i].height };
+
+				if (sensorLeft.Overlaps(rectJ)) {
+					colliders[i].onTheLeftWall = true;
+				}
+				if (sensorRight.Overlaps(rectJ)) {
+					colliders[i].onTheRightWall = true;
+				}
+			}
 		}
 	}
 }

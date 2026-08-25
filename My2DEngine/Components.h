@@ -55,4 +55,6 @@ struct KinematicComponent {
 	float jumpBufferDuration = 0.0f;
 	float jumpCoyoteTimer = 0.0f;
 	float jumpCoyoteDuration = 0.0f;
+	float wallStickTimer = 0.0f;
+	float wallStickDuration = 0.0f;
 };

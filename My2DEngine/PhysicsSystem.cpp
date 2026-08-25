@@ -13,8 +13,8 @@ void PhysicsSystem::CalculateTrajectory(std::span<const TagComponent> tags, std:
 
 		if (tags[i].id == EntityTag::Player) {
 
-			CalculateHorizontalVelocity(inputs[i].direction, velocities[i], kinematics[i], deltaTime);
 			UpdateJumpTimers(colliders[i], inputs[i], kinematics[i], deltaTime);
+			CalculateHorizontalVelocity(inputs[i].direction, colliders[i], velocities[i], kinematics[i], deltaTime);
 			CalculateVerticalVelocity(colliders[i], velocities[i], kinematics[i]);
 
 		}
@@ -26,7 +26,63 @@ void PhysicsSystem::CalculateTrajectory(std::span<const TagComponent> tags, std:
 
 // --- Helpers ---
 
-void PhysicsSystem::CalculateHorizontalVelocity(const float currentDirection, VelocityComponent& velocity, const KinematicComponent& kinematic, const float deltaTime) {
+void PhysicsSystem::UpdateJumpTimers(const CollisionComponent& collider, const InputComponent& input, KinematicComponent& kinematic, const float deltaTime) {
+
+	// --- Wall Stick ---
+
+	if (kinematic.wallStickTimer > deltaTime) {
+		kinematic.wallStickTimer -= deltaTime;
+	}
+
+	if (kinematic.wallStickTimer <= deltaTime || collider.isOnTheGround) {
+		kinematic.wallStickTimer = 0;
+	}
+
+	if (!collider.isOnTheGround && collider.onTheLeftWall && input.direction != 1 && kinematic.wallStickTimer == 0) {
+		kinematic.wallStickTimer = kinematic.wallStickDuration;
+
+	}
+	else if (!collider.isOnTheGround && collider.onTheRightWall && input.direction != -1 && kinematic.wallStickTimer == 0) {
+		kinematic.wallStickTimer = kinematic.wallStickDuration;
+
+	}
+
+	// --- Jump Buffer ---
+
+	if (kinematic.jumpBufferTimer > deltaTime) {
+		kinematic.jumpBufferTimer -= deltaTime;
+	}
+	else {
+		kinematic.jumpBufferTimer = 0;
+	}
+
+	if (input.isJumping && !input.wasJumping) {
+		kinematic.jumpBufferTimer = kinematic.jumpBufferDuration;
+	}
+
+	// --- Jump Coyote ---
+
+	if (kinematic.jumpCoyoteTimer > deltaTime) {
+		kinematic.jumpCoyoteTimer -= deltaTime;
+	}
+	else {
+		kinematic.jumpCoyoteTimer = 0;
+	}
+
+	if (collider.isOnTheGround) {
+		kinematic.jumpCoyoteTimer = kinematic.jumpCoyoteDuration;
+	}
+}
+
+
+void PhysicsSystem::CalculateHorizontalVelocity(const float currentDirection, const CollisionComponent& collider, VelocityComponent& velocity, const KinematicComponent& kinematic, const float deltaTime) {
+
+	if (kinematic.wallStickTimer > 0 && (collider.onTheLeftWall || collider.onTheRightWall)) {
+		velocity.velocityX = 0.0f;
+	}
+	else {
+		velocity.velocityX += currentDirection * kinematic.acceleration * deltaTime;
+	}
 
 	if (currentDirection == 0 || (currentDirection == 1 && velocity.velocityX < 0) || (currentDirection == -1 && velocity.velocityX > 0)) { // Apply friction when no input is given or when the input direction is opposite to the current velocity
 		if (velocity.velocityX > 0) { // Apply friction going left
@@ -42,50 +98,15 @@ void PhysicsSystem::CalculateHorizontalVelocity(const float currentDirection, Ve
 			}
 		}
 	}
-	else {
-		velocity.velocityX += currentDirection * kinematic.acceleration * deltaTime; // Update velocity based on input direction and acceleration
 
-		if (velocity.velocityX > kinematic.maxSpeed) {
-			velocity.velocityX = kinematic.maxSpeed;
-		}
-		else if (velocity.velocityX < -kinematic.maxSpeed) {
-			velocity.velocityX = -kinematic.maxSpeed;
-		}
+	if (velocity.velocityX > kinematic.maxSpeed) {
+		velocity.velocityX = kinematic.maxSpeed;
 	}
-
+	else if (velocity.velocityX < -kinematic.maxSpeed) {
+		velocity.velocityX = -kinematic.maxSpeed;
+	}
 }
 
-void PhysicsSystem::UpdateJumpTimers(const CollisionComponent& collider, const InputComponent& input, KinematicComponent& kinematic, const float deltaTime) {
-
-	// --- Jump Buffer ---
-
-	if (kinematic.jumpBufferTimer > 0) {
-		kinematic.jumpBufferTimer -= deltaTime;
-
-	}
-	else {
-		kinematic.jumpBufferTimer = 0;
-	}
-
-	if (input.isJumping && !input.wasJumping) {
-		kinematic.jumpBufferTimer = kinematic.jumpBufferDuration;
-	}
-
-	// --- Jump Coyote ---
-
-	if (kinematic.jumpCoyoteTimer > 0) {
-		kinematic.jumpCoyoteTimer -= deltaTime;
-
-	}
-	else {
-		kinematic.jumpCoyoteTimer = 0;
-	}
-
-	if (collider.isOnTheGround) {
-		kinematic.jumpCoyoteTimer = kinematic.jumpCoyoteDuration;
-	}
-
-}
 
 void PhysicsSystem::CalculateVerticalVelocity(const CollisionComponent& collider, VelocityComponent& velocity, KinematicComponent& kinematic) {
 
@@ -110,7 +131,7 @@ void PhysicsSystem::CalculateVerticalVelocity(const CollisionComponent& collider
 		if (hasJumped) {
 			kinematic.jumpBufferTimer = 0;
 			kinematic.jumpCoyoteTimer = 0;
+			kinematic.wallStickTimer = 0;
 		}
 	}
-
 }
