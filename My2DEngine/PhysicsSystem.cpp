@@ -15,15 +15,15 @@ void PhysicsSystem::CalculateTrajectory(std::span<const TagComponent> tags, std:
 
 			UpdateJumpTimers(colliders[i], inputs[i], kinematics[i], deltaTime);
 			CalculateHorizontalVelocity(inputs[i].direction, colliders[i], velocities[i], kinematics[i], deltaTime);
-			CalculateVerticalVelocity(colliders[i], velocities[i], kinematics[i]);
+			CalculateVerticalVelocity(colliders[i], velocities[i], kinematics[i], deltaTime);
 
 		}
+		else {
+			velocities[i].velocityY += kinematics[i].gravity * deltaTime;
 
-		// Apply gravity
-		velocities[i].velocityY += kinematics[i].gravity * deltaTime;
-
-		if (velocities[i].velocityY >= kinematics[i].maxSpeedY) {
-			velocities[i].velocityY = kinematics[i].maxSpeedY;
+			if (velocities[i].velocityY >= kinematics[i].maxSpeedY) {
+				velocities[i].velocityY = kinematics[i].maxSpeedY;
+			}
 		}
 	}
 }
@@ -112,7 +112,7 @@ void PhysicsSystem::CalculateHorizontalVelocity(const float currentDirection, co
 }
 
 
-void PhysicsSystem::CalculateVerticalVelocity(const CollisionComponent& collider, VelocityComponent& velocity, KinematicComponent& kinematic) {
+void PhysicsSystem::CalculateVerticalVelocity(const CollisionComponent& collider, VelocityComponent& velocity, KinematicComponent& kinematic, const float deltaTime) {
 
 	if (kinematic.jumpBufferTimer > 0) {
 		bool hasJumped = false;
@@ -136,6 +136,21 @@ void PhysicsSystem::CalculateVerticalVelocity(const CollisionComponent& collider
 			kinematic.jumpBufferTimer = 0;
 			kinematic.jumpCoyoteTimer = 0;
 			kinematic.wallStickTimer = 0;
+		}
+	}
+
+	if (collider.onTheLeftWall || collider.onTheRightWall) {
+		velocity.velocityY += kinematic.wallGravity * deltaTime;
+
+		if (velocity.velocityY >= kinematic.maxWallSpeedY) {
+			velocity.velocityY = kinematic.maxWallSpeedY;
+		}
+	}
+	else {
+		velocity.velocityY += kinematic.gravity * deltaTime;
+
+		if (velocity.velocityY >= kinematic.maxSpeedY) {
+			velocity.velocityY = kinematic.maxSpeedY;
 		}
 	}
 }
