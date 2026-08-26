@@ -42,11 +42,11 @@ void PhysicsSystem::UpdateJumpTimers(const CollisionComponent& collider, const I
 		kinematic.wallStickTimer = 0;
 	}
 
-	if (!collider.isOnTheGround && collider.onTheLeftWall && input.direction != 1 && kinematic.wallStickTimer == 0) {
+	if (collider.onTheLeftWall && !collider.isOnTheGround && input.direction != 1 && kinematic.wallStickTimer == 0) {
 		kinematic.wallStickTimer = kinematic.wallStickDuration;
 
 	}
-	else if (!collider.isOnTheGround && collider.onTheRightWall && input.direction != -1 && kinematic.wallStickTimer == 0) {
+	else if (collider.onTheRightWall && !collider.isOnTheGround && input.direction != -1 && kinematic.wallStickTimer == 0) {
 		kinematic.wallStickTimer = kinematic.wallStickDuration;
 
 	}
