@@ -85,18 +85,33 @@ void PhysicsSystem::CalculateHorizontalVelocity(const float currentDirection, co
 		velocity.velocityX = 0.0f;
 	}
 	else {
-		velocity.velocityX += currentDirection * kinematic.acceleration * deltaTime;
+		if (collider.isOnTheGround) {
+			velocity.velocityX += currentDirection * kinematic.groundAcceleration * deltaTime;
+		}
+		else {
+			velocity.velocityX += currentDirection * kinematic.airAcceleration * deltaTime;
+		}
 	}
 
 	if (currentDirection == 0 || (currentDirection == 1 && velocity.velocityX < 0) || (currentDirection == -1 && velocity.velocityX > 0)) { // Apply friction when no input is given or when the input direction is opposite to the current velocity
 		if (velocity.velocityX > 0) { // Apply friction going left
-			velocity.velocityX -= kinematic.friction * deltaTime;
+			if (collider.isOnTheGround) {
+				velocity.velocityX -= kinematic.groundFriction * deltaTime;
+			}
+			else {
+				velocity.velocityX -= kinematic.airFriction * deltaTime;
+			}
 			if (velocity.velocityX < 0) {
 				velocity.velocityX = 0;
 			}
 		}
 		else if (velocity.velocityX < 0) { // Apply friction going right
-			velocity.velocityX += kinematic.friction * deltaTime;
+			if (collider.isOnTheGround) {
+				velocity.velocityX += kinematic.groundFriction * deltaTime;
+			}
+			else {
+				velocity.velocityX += kinematic.airFriction * deltaTime;
+			}
 			if (velocity.velocityX > 0) {
 				velocity.velocityX = 0;
 			}

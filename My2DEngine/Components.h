@@ -44,13 +44,15 @@ struct VelocityComponent {
 };
 
 struct KinematicComponent {
-	float acceleration = 0.0f;
+	float groundAcceleration = 0.0f;
+	float airAcceleration = 0.0f;
 	float gravity = 0.0f;
 	float wallGravity = 0.0f;
 	float maxSpeedX = 0.0f;
 	float maxSpeedY = 0.0f;
 	float maxWallSpeedY = 0.0f;
-	float friction = 0.0f;
+	float groundFriction = 0.0f;
+	float airFriction = 0.0f;
 	float jumpForceX = 0.0f;
 	float jumpForceY = 0.0f;
 

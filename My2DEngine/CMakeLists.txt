@@ -43,6 +43,9 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/libsdl-org/SDL_image.git
     GIT_TAG release-3.4.4
 )
+
+set(SDLIMAGE_AVIF OFF CACHE BOOL "Disable AVIF" FORCE)
+
 FetchContent_MakeAvailable(SDL3_image)
 
 # ==========================================
