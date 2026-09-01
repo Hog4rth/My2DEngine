@@ -35,15 +35,13 @@ void PhysicsSystem::UpdateJumpTimers(const CollisionComponent& collider, const I
 
 	// --- Jump Buffer ---
 
-	if (kinematic.jumpBufferTimer > deltaTime) { kinematic.jumpBufferTimer -= deltaTime; }
-	else { kinematic.jumpBufferTimer = 0; }
+	kinematic.jumpBufferTimer = (kinematic.jumpBufferTimer > deltaTime) ? kinematic.jumpBufferTimer - deltaTime : 0;
 
 	if (input.isJumping && !input.wasJumping) { kinematic.jumpBufferTimer = kinematic.jumpBufferDuration; }
 
 	// --- Jump Coyote ---
 
-	if (kinematic.jumpCoyoteTimer > deltaTime) { kinematic.jumpCoyoteTimer -= deltaTime; }
-	else { kinematic.jumpCoyoteTimer = 0; }
+	kinematic.jumpCoyoteTimer = (kinematic.jumpCoyoteTimer > deltaTime) ? kinematic.jumpCoyoteTimer - deltaTime : 0;
 
 	if (collider.isOnTheGround) { kinematic.jumpCoyoteTimer = kinematic.jumpCoyoteDuration; }
 }
@@ -55,32 +53,18 @@ void PhysicsSystem::CalculateHorizontalVelocity(const float currentDirection, co
 		velocity.velocityX = 0.0f;
 	}
 	else {
-		if (collider.isOnTheGround) {
-			velocity.velocityX += currentDirection * kinematic.groundAcceleration * deltaTime;
-		}
-		else {
-			velocity.velocityX += currentDirection * kinematic.airAcceleration * deltaTime;
-		}
+		velocity.velocityX += currentDirection * (collider.isOnTheGround ? kinematic.groundAcceleration : kinematic.airAcceleration) * deltaTime;
 	}
 
 	if (currentDirection == 0 || (currentDirection == 1 && velocity.velocityX < 0) || (currentDirection == -1 && velocity.velocityX > 0)) { // Apply friction when no input is given or when the input direction is opposite to the current velocity
 		if (velocity.velocityX > 0) { // Apply friction going left
-			if (collider.isOnTheGround) {
-				velocity.velocityX -= kinematic.groundFriction * deltaTime;
-			}
-			else {
-				velocity.velocityX -= kinematic.airFriction * deltaTime;
-			}
 
+			velocity.velocityX -= (collider.isOnTheGround ? kinematic.groundFriction : kinematic.airFriction) * deltaTime;
 			if (velocity.velocityX < 0) { velocity.velocityX = 0; }
 		}
 		else if (velocity.velocityX < 0) { // Apply friction going right
-			if (collider.isOnTheGround) {
-				velocity.velocityX += kinematic.groundFriction * deltaTime;
-			}
-			else {
-				velocity.velocityX += kinematic.airFriction * deltaTime;
-			}
+
+			velocity.velocityX += (collider.isOnTheGround ? kinematic.groundFriction : kinematic.airFriction) * deltaTime;
 			if (velocity.velocityX > 0) { velocity.velocityX = 0; }
 		}
 	}
