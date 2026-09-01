@@ -52,9 +52,7 @@ void GameEngine::UpdateDeltaTime() {
 	deltaTime = elapsed.count();
 	lastTick = currentTick;
 
-	// Delta Time Clamping
-	if (deltaTime <= 0.0f) { deltaTime = 0.0001f; }
-	if (deltaTime > 0.05f) { deltaTime = 0.05f; } // 20 FPS
+	deltaTime = std::clamp(deltaTime, 0.0001f, 0.05f);
 }
 
 void GameEngine::Update() {
