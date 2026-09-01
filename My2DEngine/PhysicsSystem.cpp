@@ -85,8 +85,7 @@ void PhysicsSystem::CalculateHorizontalVelocity(const float currentDirection, co
 		}
 	}
 
-	if (velocity.velocityX > kinematic.maxSpeedX) { velocity.velocityX = kinematic.maxSpeedX; }
-	else if (velocity.velocityX < -kinematic.maxSpeedX) { velocity.velocityX = -kinematic.maxSpeedX; }
+	velocity.velocityX = std::clamp(velocity.velocityX, -kinematic.maxSpeedX, kinematic.maxSpeedX);
 }
 
 
