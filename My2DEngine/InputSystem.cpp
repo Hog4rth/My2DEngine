@@ -5,10 +5,7 @@ bool InputSystem::ProcessInput(std::span<const TagComponent> tags, std::span<Inp
 
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
-
-		if (event.type == SDL_EVENT_QUIT) { // Handle quit event
-			return false;
-		}
+		if (event.type == SDL_EVENT_QUIT) return false; // Handle quit event	
 	}
 
 	const bool* state = SDL_GetKeyboardState(nullptr);
@@ -18,9 +15,7 @@ bool InputSystem::ProcessInput(std::span<const TagComponent> tags, std::span<Inp
 
 	for (size_t i = 0; i < tags.size(); ++i) {
 
-		if (tags[i].id != EntityTag::Player) {
-			continue;
-		}
+		if (tags[i].id != EntityTag::Player) continue;
 
 		inputs[i].direction = currentDirectionX;
 

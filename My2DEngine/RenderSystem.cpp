@@ -59,9 +59,7 @@ void RenderSystem::RenderEntitiesByTag(const EntityTag targetTag, const Uint8 r,
 	SDL_SetRenderDrawColor(renderer.get(), r, g, b, a);
 
 	for (size_t i = 0; i < tags.size(); ++i) {
-		if (tags[i].id != targetTag) {
-			continue;
-		}
+		if (tags[i].id != targetTag) continue;
 
 		SDL_FRect rect = { positions[i].x, positions[i].y, sizes[i].width, sizes[i].height };
 		SDL_RenderFillRect(renderer.get(), &rect);

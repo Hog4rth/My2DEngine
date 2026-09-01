@@ -3,13 +3,8 @@
 void PhysicsSystem::CalculateTrajectory(std::span<const TagComponent> tags, std::span<const InputComponent> inputs, std::span<const CollisionComponent> colliders, std::span<VelocityComponent> velocities, std::span<KinematicComponent> kinematics, const float deltaTime) {
 	for (size_t i = 0; i < tags.size(); ++i) {
 
-		if (tags[i].id == EntityTag::None) {
-			continue;
-		}
-
-		if (!velocities[i].canItMove) {
-			continue;
-		}
+		if (tags[i].id == EntityTag::None) continue;
+		if (!velocities[i].canItMove) continue;
 
 		if (tags[i].id == EntityTag::Player) {
 
@@ -21,9 +16,7 @@ void PhysicsSystem::CalculateTrajectory(std::span<const TagComponent> tags, std:
 		else {
 			velocities[i].velocityY += kinematics[i].gravity * deltaTime;
 
-			if (velocities[i].velocityY >= kinematics[i].maxSpeedY) {
-				velocities[i].velocityY = kinematics[i].maxSpeedY;
-			}
+			if (velocities[i].velocityY >= kinematics[i].maxSpeedY) { velocities[i].velocityY = kinematics[i].maxSpeedY; }
 		}
 	}
 }
@@ -34,48 +27,25 @@ void PhysicsSystem::UpdateJumpTimers(const CollisionComponent& collider, const I
 
 	// --- Wall Stick ---
 
-	if (kinematic.wallStickTimer > deltaTime) {
-		kinematic.wallStickTimer -= deltaTime;
-	}
+	if (kinematic.wallStickTimer > deltaTime) { kinematic.wallStickTimer -= deltaTime; }
+	if (kinematic.wallStickTimer <= deltaTime || collider.isOnTheGround) { kinematic.wallStickTimer = 0; }
 
-	if (kinematic.wallStickTimer <= deltaTime || collider.isOnTheGround) {
-		kinematic.wallStickTimer = 0;
-	}
-
-	if (collider.onTheLeftWall && !collider.isOnTheGround && input.direction != 1 && kinematic.wallStickTimer == 0) {
-		kinematic.wallStickTimer = kinematic.wallStickDuration;
-
-	}
-	else if (collider.onTheRightWall && !collider.isOnTheGround && input.direction != -1 && kinematic.wallStickTimer == 0) {
-		kinematic.wallStickTimer = kinematic.wallStickDuration;
-
-	}
+	if (collider.onTheLeftWall && !collider.isOnTheGround && input.direction != 1 && kinematic.wallStickTimer == 0) { kinematic.wallStickTimer = kinematic.wallStickDuration; }
+	else if (collider.onTheRightWall && !collider.isOnTheGround && input.direction != -1 && kinematic.wallStickTimer == 0) { kinematic.wallStickTimer = kinematic.wallStickDuration; }
 
 	// --- Jump Buffer ---
 
-	if (kinematic.jumpBufferTimer > deltaTime) {
-		kinematic.jumpBufferTimer -= deltaTime;
-	}
-	else {
-		kinematic.jumpBufferTimer = 0;
-	}
+	if (kinematic.jumpBufferTimer > deltaTime) { kinematic.jumpBufferTimer -= deltaTime; }
+	else { kinematic.jumpBufferTimer = 0; }
 
-	if (input.isJumping && !input.wasJumping) {
-		kinematic.jumpBufferTimer = kinematic.jumpBufferDuration;
-	}
+	if (input.isJumping && !input.wasJumping) { kinematic.jumpBufferTimer = kinematic.jumpBufferDuration; }
 
 	// --- Jump Coyote ---
 
-	if (kinematic.jumpCoyoteTimer > deltaTime) {
-		kinematic.jumpCoyoteTimer -= deltaTime;
-	}
-	else {
-		kinematic.jumpCoyoteTimer = 0;
-	}
+	if (kinematic.jumpCoyoteTimer > deltaTime) { kinematic.jumpCoyoteTimer -= deltaTime; }
+	else { kinematic.jumpCoyoteTimer = 0; }
 
-	if (collider.isOnTheGround) {
-		kinematic.jumpCoyoteTimer = kinematic.jumpCoyoteDuration;
-	}
+	if (collider.isOnTheGround) { kinematic.jumpCoyoteTimer = kinematic.jumpCoyoteDuration; }
 }
 
 
@@ -101,9 +71,8 @@ void PhysicsSystem::CalculateHorizontalVelocity(const float currentDirection, co
 			else {
 				velocity.velocityX -= kinematic.airFriction * deltaTime;
 			}
-			if (velocity.velocityX < 0) {
-				velocity.velocityX = 0;
-			}
+
+			if (velocity.velocityX < 0) { velocity.velocityX = 0; }
 		}
 		else if (velocity.velocityX < 0) { // Apply friction going right
 			if (collider.isOnTheGround) {
@@ -112,18 +81,12 @@ void PhysicsSystem::CalculateHorizontalVelocity(const float currentDirection, co
 			else {
 				velocity.velocityX += kinematic.airFriction * deltaTime;
 			}
-			if (velocity.velocityX > 0) {
-				velocity.velocityX = 0;
-			}
+			if (velocity.velocityX > 0) { velocity.velocityX = 0; }
 		}
 	}
 
-	if (velocity.velocityX > kinematic.maxSpeedX) {
-		velocity.velocityX = kinematic.maxSpeedX;
-	}
-	else if (velocity.velocityX < -kinematic.maxSpeedX) {
-		velocity.velocityX = -kinematic.maxSpeedX;
-	}
+	if (velocity.velocityX > kinematic.maxSpeedX) { velocity.velocityX = kinematic.maxSpeedX; }
+	else if (velocity.velocityX < -kinematic.maxSpeedX) { velocity.velocityX = -kinematic.maxSpeedX; }
 }
 
 
@@ -157,15 +120,11 @@ void PhysicsSystem::CalculateVerticalVelocity(const CollisionComponent& collider
 	if (collider.onTheLeftWall || collider.onTheRightWall) {
 		velocity.velocityY += kinematic.wallGravity * deltaTime;
 
-		if (velocity.velocityY >= kinematic.maxWallSpeedY) {
-			velocity.velocityY = kinematic.maxWallSpeedY;
-		}
+		if (velocity.velocityY >= kinematic.maxWallSpeedY) { velocity.velocityY = kinematic.maxWallSpeedY; }
 	}
 	else {
 		velocity.velocityY += kinematic.gravity * deltaTime;
 
-		if (velocity.velocityY >= kinematic.maxSpeedY) {
-			velocity.velocityY = kinematic.maxSpeedY;
-		}
+		if (velocity.velocityY >= kinematic.maxSpeedY) { velocity.velocityY = kinematic.maxSpeedY; }
 	}
 }

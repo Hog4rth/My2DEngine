@@ -14,13 +14,8 @@ void CollisionSystem::UpdateCollisions(std::span<const TagComponent> tags, std::
 
 	for (size_t i = 0; i < tags.size(); ++i) {
 
-		if (tags[i].id == EntityTag::None) {
-			continue;
-		}
-
-		if (!velocities[i].canItMove) { // check if i-object can move 
-			continue;
-		}
+		if (tags[i].id == EntityTag::None) continue;
+		if (!velocities[i].canItMove) continue; // check if i-object can move 
 
 		colliders[i].onTheLeftWall = false;
 		colliders[i].onTheRightWall = false;
@@ -28,9 +23,7 @@ void CollisionSystem::UpdateCollisions(std::span<const TagComponent> tags, std::
 
 
 		for (size_t j = 0; j < tags.size(); ++j) {
-			if (i == j || !colliders[j].isSolid) { // check if j-object is solid and not the same as i-object
-				continue;
-			}
+			if (i == j || !colliders[j].isSolid) continue; // check if j-object is solid and not the same as i-object
 
 			float futurePositionX = positions[i].x + velocities[i].velocityX * deltaTime;
 
@@ -71,12 +64,8 @@ void CollisionSystem::UpdateCollisions(std::span<const TagComponent> tags, std::
 				Rect sensorLeft = { positions[i].x - collisionTolerance, positions[i].y, collisionTolerance, sizes[i].height };
 				Rect sensorRight = { positions[i].x + sizes[i].width, positions[i].y, collisionTolerance, sizes[i].height };
 
-				if (sensorLeft.Overlaps(rectJ)) {
-					colliders[i].onTheLeftWall = true;
-				}
-				if (sensorRight.Overlaps(rectJ)) {
-					colliders[i].onTheRightWall = true;
-				}
+				if (sensorLeft.Overlaps(rectJ)) { colliders[i].onTheLeftWall = true; }
+				if (sensorRight.Overlaps(rectJ)) { colliders[i].onTheRightWall = true; }
 			}
 		}
 	}
