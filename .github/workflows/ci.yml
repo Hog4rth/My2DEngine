@@ -1,0 +1,25 @@
+name: C++ CI
+
+on:
+  push:
+    branches: [ "branch" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout del codice
+      uses: actions/checkout@v4
+
+    - name: Configura CMake
+      run: cmake -B build
+
+    - name: Compila il progetto
+      run: cmake --build build --config Release
+
+    - name: Esegui i Test
+      working-directory: build
+      run: ctest -C Release --output-on-failure

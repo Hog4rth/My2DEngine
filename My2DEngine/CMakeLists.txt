@@ -3,24 +3,21 @@
 # ==========================================
 # DEFINING THE PROJECT AND ITS SOURCES
 # ==========================================
-add_executable(My2DEngine  
-    "My2DEngine.cpp" 
-    "GameEngine.h" 
-    "GameEngine.cpp" 
+add_library(EngineCore STATIC  
+    "GameEngine.h" "GameEngine.cpp" 
     "Components.h" 
-    "MovementSystem.h" 
-    "MovementSystem.cpp" 
-    "FileManager.h"
-    "FileManager.cpp" 
-    "RenderSystem.h" 
-    "RenderSystem.cpp"
-    "InputSystem.h"
-    "InputSystem.cpp"
-    "CollisionSystem.h"
-    "CollisionSystem.cpp" "PhysicsSystem.h" "PhysicsSystem.cpp") 
+    "MovementSystem.h" "MovementSystem.cpp" 
+    "FileManager.h" "FileManager.cpp" 
+    "RenderSystem.h" "RenderSystem.cpp"
+    "InputSystem.h" "InputSystem.cpp"
+    "CollisionSystem.h" "CollisionSystem.cpp"
+	"PhysicsSystem.h" "PhysicsSystem.cpp") 
+
+add_executable(My2DEngine "My2DEngine.cpp" )
 
 # Set C++ standard to C++20
 if (CMAKE_VERSION VERSION_GREATER 3.12)
+  set_property(TARGET EngineCore PROPERTY CXX_STANDARD 20)
   set_property(TARGET My2DEngine PROPERTY CXX_STANDARD 20)
 endif()
 
@@ -51,11 +48,42 @@ FetchContent_MakeAvailable(SDL3_image)
 # ==========================================
 # LINKING THE LIBRARIES TO THE ENGINE
 # ==========================================
-target_link_libraries(My2DEngine PRIVATE SDL3::SDL3 SDL3_image::SDL3_image)
+target_link_libraries(EngineCore PUBLIC SDL3::SDL3 SDL3_image::SDL3_image)
+target_link_libraries(My2DEngine PRIVATE EngineCore)
+
+# ==========================================
+# UNIT TESTING (Google Test)
+# ==========================================
+enable_testing()
+
+FetchContent_Declare(
+	googletest
+	GIT_REPOSITORY https://github.com/google/googletest.git
+	GIT_TAG v1.14.0
+)
+FetchContent_MakeAvailable(googletest)
+
+# Create and link a separate executable strictly for running tests
+add_executable(EngineTests "tests/test_example.cpp")
+target_link_libraries(EngineTests PRIVATE EngineCore GTest::gtest_main)
+set_property(TARGET EngineTests PROPERTY CXX_STANDARD 20)
+
+
 
 # ==========================================
 # POST-BUILD COMMANDS
 # ==========================================
+# Copy all .dll files (GTest) next to the executable
+add_custom_command(
+    TARGET EngineTests POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+    $<TARGET_RUNTIME_DLLS:EngineTests>
+    $<TARGET_FILE_DIR:EngineTests>
+    COMMAND_EXPAND_LISTS
+)
+include(GoogleTest)
+add_test(NAME test_example COMMAND EngineTests)
+
 # Copy all .dll files (SDL3, SDL3_image) next to the executable
 add_custom_command(
     TARGET My2DEngine POST_BUILD
