@@ -1,0 +1,44 @@
+---
+Language: Cpp
+BasedOnStyle: Google
+Standard: c++20
+
+# Align with .editorconfig
+UseTab: ForIdentation
+IndentWidth: 4
+TabWidth: 4
+
+# Fix for access modifiers indentation (public/private)
+AccessModifierOffset: -4
+
+# Width management and general formatting
+ColumnLimit: 120
+ReflowComments: true
+SortIncludes: CaseSensitive
+
+# Alignments and Spacing
+AlignArrayOfStructures: Right
+AlignConsecutiveAssignments: None
+PointerAlignment: Left
+DerivePointerAlignment: false
+SpaceBeforeParens: ControlStatements
+
+# Management of Blocks and Braces
+BreakBeforeBraces: Attach
+IndentCaseLabels: true
+
+# Code compression
+AllowShortBlocksOnASingleLine: Never
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Inline
+FixNamespaceComments: true
+
+# Modern C++ & C++20 Specifics
+IndentRequiresClause: true
+RequiresClausePosition: OwnLine
+AllowShortLambdasOnASingleLine: All
+Cpp11BracedListStyle: true
+SpaceBeforeCpp11BracedList: false
+PackConstructorInitializers: NextLine
+BreakConstructorInitializers: BeforeColon

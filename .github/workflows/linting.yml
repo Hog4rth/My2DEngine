@@ -1,0 +1,54 @@
+name: Lint
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  clang-format:
+    name: clang-format check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        #with:
+        #  fetch-depth: 0
+
+      - name: Install clang-format
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang-format-18
+          sudo update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-18 100
+
+      - name: Verify clang-format version
+        run: clang-format --version
+
+      - name: Run clang-format check on all C++ files
+        run: |
+          echo "Running clang-format check on all C++ files..."
+          find . -regex '.*\.\(cpp\|hpp\|h\|cc\|cxx\)$' | xargs clang-format --dry-run --Werror
+
+      # - name: Get changed C++ files
+      #   id: changed-files
+      #   uses: tj-actions/changed-files@v45
+      #   with:
+      #     files: |
+      #       **/*.cpp
+      #       **/*.h
+      #       **/*.hpp
+      #       **/*.cc
+      #       **/*.cxx
+
+      # - name: Run clang-format check
+      #   if: steps.changed-files.outputs.any_changed == 'true'
+      #   run: |
+      #     echo "File modificati da controllare:"
+      #     echo "${{ steps.changed-files.outputs.all_changed_files }}"
+      #     clang-format --dry-run --Werror ${{ steps.changed-files.outputs.all_changed_files }}
+
+      # - name: No relevant files changed
+      #   if: steps.changed-files.outputs.any_changed == 'false'
+      #   run: echo "Nessun file C++ modificato, skip del lint."
