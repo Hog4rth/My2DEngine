@@ -4,7 +4,7 @@ BasedOnStyle: Google
 Standard: c++20
 
 # Align with .editorconfig
-UseTab: ForIdentation
+UseTab: ForIndentation
 IndentWidth: 4
 TabWidth: 4
 
