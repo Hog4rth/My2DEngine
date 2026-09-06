@@ -1,11 +1,11 @@
-#include <iostream>
-#include <string>
-#include <fstream>
-#include <filesystem>
 #include "FileManager.h"
 
-void FileManager::LoadFile() {
+#include <filesystem>
+#include <fstream>
+#include <iostream>
+#include <string>
 
+void FileManager::LoadFile() {
 	std::ifstream file(filePath);
 
 	if (file.is_open()) {
@@ -30,8 +30,7 @@ void FileManager::LoadFile() {
 			}
 		}
 		file.close();
-	}
-	else {
+	} else {
 		std::cerr << "Warning: Config file not found! Using default settings.\n";
 	}
 }

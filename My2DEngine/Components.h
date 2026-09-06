@@ -1,12 +1,7 @@
 #pragma once
 #include <span>
 
-enum class EntityTag {
-	Player,
-	Solid,
-	Enemy,
-	None
-};
+enum class EntityTag { Player, Solid, Enemy, None };
 
 struct TagComponent {
 	EntityTag id = EntityTag::None;

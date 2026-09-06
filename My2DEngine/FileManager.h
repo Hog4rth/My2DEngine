@@ -1,7 +1,7 @@
 #pragma once
+#include <iostream>
 #include <map>
 #include <sstream>
-#include <iostream>
 #include <string_view>
 #include <type_traits>
 
@@ -13,7 +13,6 @@ public:
 
 	template <typename T>
 	T Load(std::string_view key, const T defaultValue) {
-
 		auto it = dataMap.find(key);
 		if (it == dataMap.end()) {
 			return defaultValue;
@@ -23,8 +22,7 @@ public:
 
 		if constexpr (std::is_same_v<T, std::string>) {
 			return keyFound;
-		}
-		else {
+		} else {
 			T valueFound;
 			std::stringstream Convert(keyFound);
 			Convert >> valueFound;
@@ -41,5 +39,4 @@ public:
 private:
 	std::map<std::string, std::string, std::less<>> dataMap;
 	std::string filePath;
-
 };

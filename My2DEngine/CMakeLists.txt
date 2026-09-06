@@ -68,8 +68,6 @@ add_executable(EngineTests "tests/test_example.cpp")
 target_link_libraries(EngineTests PRIVATE EngineCore GTest::gtest_main)
 set_property(TARGET EngineTests PROPERTY CXX_STANDARD 20)
 
-
-
 # ==========================================
 # POST-BUILD COMMANDS
 # ==========================================

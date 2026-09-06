@@ -1,13 +1,14 @@
 #pragma once
 #include <algorithm>
 #include <chrono>
-#include "Components.h"
-#include "MovementSystem.h"
-#include "FileManager.h"
-#include "RenderSystem.h"
-#include "InputSystem.h"
+
 #include "CollisionSystem.h"
+#include "Components.h"
+#include "FileManager.h"
+#include "InputSystem.h"
+#include "MovementSystem.h"
 #include "PhysicsSystem.h"
+#include "RenderSystem.h"
 
 class GameEngine {
 public:
@@ -16,12 +17,11 @@ public:
 	void Close();
 
 private:
-
 	static constexpr int MAX_ECS_ENTITIES = 7;
 
 	// FILE NAMES
-	FileManager userSettings{ "Settings.ini" };
-	FileManager physicsSettings{ "Physics.ini" };
+	FileManager userSettings{"Settings.ini"};
+	FileManager physicsSettings{"Physics.ini"};
 
 	RenderSystem renderSystem;
 
@@ -41,11 +41,12 @@ private:
 	// GAME LOOP
 	bool gameIsGoing = false;
 
-	void CreatePlayer(const int entityID, const float positionX, const float positionY, const float width, const float height);
-	void CreateSolid(const int entityID, const float positionX, const float positionY, const float width, const float height);
+	void CreatePlayer(const int entityID, const float positionX, const float positionY, const float width,
+	                  const float height);
+	void CreateSolid(const int entityID, const float positionX, const float positionY, const float width,
+	                 const float height);
 
 	void InitializeComponents();
 	void UpdateDeltaTime();
 	void Update();
-
 };
