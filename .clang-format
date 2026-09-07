@@ -29,10 +29,9 @@ IncludeCategories:
     Priority: 2
     CaseSensitive: true
 
-  # 4. Third-party libraries (format: <library/something.h>)
+  # 4. Non-standard angle-bracket headers (third-party / platform / other)
   - Regex: '^<[a-zA-Z0-9_./-]+>$'
     Priority: 3
-
   # 5. Header of the project in double quotes (everything else)
   - Regex: '^".*"$'
     Priority: 4
