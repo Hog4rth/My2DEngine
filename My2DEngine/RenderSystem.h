@@ -1,7 +1,7 @@
 #pragma once
-#include <SDL3/SDL.h>
-
 #include <memory>
+
+#include <SDL3/SDL.h>
 
 #include "Components.h"
 #include "FileManager.h"

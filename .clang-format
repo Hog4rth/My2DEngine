@@ -15,6 +15,27 @@ AccessModifierOffset: -4
 ColumnLimit: 120
 ReflowComments: true
 SortIncludes: CaseSensitive
+IncludeBlocks: Regroup
+IncludeCategories:
+  # 1. The header file of the current file (is automatically included)
+
+  # 2. Standard C libraries
+  - Regex: '^<c(assert|ctype|errno|fenv|float|inttypes|limits|locale|math|setjmp|signal|stdarg|stddef|stdint|stdio|stdlib|string|time|uchar|wchar|wctype)>$'
+    Priority: 1
+    CaseSensitive: true
+
+  # 3. Standard C++ libraries
+  - Regex: '^<[a-z_]+>$'
+    Priority: 2
+    CaseSensitive: true
+
+  # 4. Third-party libraries (format: <library/something.h>)
+  - Regex: '^<[a-zA-Z0-9_./-]+>$'
+    Priority: 3
+
+  # 5. Header of the project in double quotes (everything else)
+  - Regex: '^".*"$'
+    Priority: 4
 
 # Alignments and Spacing
 AlignArrayOfStructures: Right
