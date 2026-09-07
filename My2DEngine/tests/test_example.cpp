@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+
 #include "../FileManager.h"
 
 TEST(FileManagerTest, FallbackOnMissingKey) {
