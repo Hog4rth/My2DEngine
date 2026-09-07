@@ -19,7 +19,7 @@ IncludeBlocks: Regroup
 IncludeCategories:
   # 1. The header file of the current file (is automatically included)
 
-  # 2. Standard C libraries
+  # 2. Standard C libraries (C++-style C headers, e.g. <cstdio>)
   - Regex: '^<c(assert|ctype|errno|fenv|float|inttypes|limits|locale|math|setjmp|signal|stdarg|stddef|stdint|stdio|stdlib|string|time|uchar|wchar|wctype)>$'
     Priority: 1
     CaseSensitive: true
