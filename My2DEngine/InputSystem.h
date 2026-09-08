@@ -1,4 +1,6 @@
 #pragma once
+#include <span>
+
 #include "Components.h"
 
 class InputSystem {

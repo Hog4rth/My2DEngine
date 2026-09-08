@@ -18,9 +18,8 @@ SortIncludes: CaseSensitive
 IncludeBlocks: Regroup
 IncludeCategories:
   # 1. The header file of the current file (is automatically included)
-
-  # 2. Standard C libraries (C++-style C headers, e.g. <cstdio>)
-  - Regex: '^<c(assert|ctype|errno|fenv|float|inttypes|limits|locale|math|setjmp|signal|stdarg|stddef|stdint|stdio|stdlib|string|time|uchar|wchar|wctype)>$'
+  # 2. Standard C libraries (C++-style C headers, e.g. <cstdio>, and legacy .h)
+  - Regex: '^<(c(assert|ctype|errno|fenv|float|inttypes|limits|locale|math|setjmp|signal|stdarg|stddef|stdint|stdio|stdlib|string|time|uchar|wchar|wctype)|(assert|ctype|errno|fenv|float|inttypes|limits|locale|math|setjmp|signal|stdarg|stddef|stdint|stdio|stdlib|string|time|uchar|wchar|wctype)\.h)>$'
     Priority: 1
     CaseSensitive: true
 
@@ -30,7 +29,7 @@ IncludeCategories:
     CaseSensitive: true
 
   # 4. Non-standard angle-bracket headers (third-party / platform / other)
-  - Regex: '^<[a-zA-Z0-9_./-]+>$'
+  - Regex: '^<.*>$'
     Priority: 3
   # 5. Header of the project in double quotes (everything else)
   - Regex: '^".*"$'

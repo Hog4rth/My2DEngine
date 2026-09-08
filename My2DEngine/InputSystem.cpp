@@ -1,5 +1,7 @@
 #include "InputSystem.h"
 
+#include <cstddef>
+
 #include <SDL3/SDL.h>
 
 bool InputSystem::ProcessInput(std::span<const TagComponent> tags, std::span<InputComponent> inputs) {

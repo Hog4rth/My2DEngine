@@ -1,6 +1,12 @@
 #include "GameEngine.h"
 
+#include <algorithm>
 #include <iostream>
+
+#include "CollisionSystem.h"
+#include "InputSystem.h"
+#include "MovementSystem.h"
+#include "PhysicsSystem.h"
 
 bool GameEngine::Initialize() {
 	userSettings.LoadFile();

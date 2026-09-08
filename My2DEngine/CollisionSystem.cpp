@@ -1,5 +1,7 @@
 #include "CollisionSystem.h"
 
+#include <cstddef>
+
 struct Rect {
 	float x, y, w, h;
 	float Right() const { return x + w; }

@@ -1,9 +1,8 @@
 #include "FileManager.h"
 
-#include <filesystem>
+#include <cstddef>
+
 #include <fstream>
-#include <iostream>
-#include <string>
 
 void FileManager::LoadFile() {
 	std::ifstream file(filePath);
