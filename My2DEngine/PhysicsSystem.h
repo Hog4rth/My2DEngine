@@ -1,5 +1,5 @@
 #pragma once
-#include <algorithm>
+#include <span>
 
 #include "Components.h"
 

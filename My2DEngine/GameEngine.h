@@ -1,13 +1,8 @@
 #pragma once
-#include <algorithm>
 #include <chrono>
 
-#include "CollisionSystem.h"
 #include "Components.h"
 #include "FileManager.h"
-#include "InputSystem.h"
-#include "MovementSystem.h"
-#include "PhysicsSystem.h"
 #include "RenderSystem.h"
 
 class GameEngine {

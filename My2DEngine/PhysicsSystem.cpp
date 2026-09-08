@@ -1,5 +1,9 @@
 #include "PhysicsSystem.h"
 
+#include <cstddef>
+
+#include <algorithm>
+
 void PhysicsSystem::CalculateTrajectory(std::span<const TagComponent> tags, std::span<const InputComponent> inputs,
                                         std::span<const CollisionComponent> colliders,
                                         std::span<VelocityComponent> velocities,

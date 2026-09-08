@@ -1,5 +1,7 @@
 #include "MovementSystem.h"
 
+#include <cstddef>
+
 void MovementSystem::UpdatePosition(std::span<const TagComponent> tags, std::span<PositionComponent> positions,
                                     std::span<const VelocityComponent> velocities, const float deltaTime) {
 	for (size_t i = 0; i < tags.size(); ++i) {

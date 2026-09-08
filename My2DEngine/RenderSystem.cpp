@@ -1,8 +1,8 @@
 #include "RenderSystem.h"
 
-#include <iostream>
+#include <cstddef>
 
-#include "Components.h"
+#include <iostream>
 
 bool RenderSystem::InitializeRenderer(FileManager& fileManager) {
 	width = fileManager.Load<int>("Width", width);
