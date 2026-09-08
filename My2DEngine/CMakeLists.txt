@@ -28,7 +28,11 @@ option(ENABLE_COVERAGE "Enable code coverage reporting" OFF)
 add_library(CoverageFlags INTERFACE)
 if(ENABLE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
     target_compile_options(CoverageFlags INTERFACE --coverage -O0 -g)
-    target_link_options(CoverageFlags INTERFACE --coverage)
+    if(COMMAND target_link_options)
+        target_link_options(CoverageFlags INTERFACE --coverage)
+    else()
+        target_link_libraries(CoverageFlags INTERFACE --coverage)
+    endif()
 endif()
 
 # ==========================================
