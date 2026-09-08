@@ -34,13 +34,12 @@ jobs:
     - name: Install OpenCppCoverage
       shell: bash
       run: |
-        curl -L https://github.com/OpenCppCoverage/OpenCppCoverage/releases/download/release-0.9.9.0/OpenCppCoverageSetup-x64-0.9.9.0.exe -o setup.exe
-        ./setup.exe /VERYSILENT
-        echo "C:/Program Files/OpenCppCoverage" >> $GITHUB_PATH
+        choco install opencppcoverage --yes
+        echo "C:\Program Files\OpenCppCoverage" >> $env:GITHUB_PATH
 
     - name: Run Tests with Coverage
       working-directory: build
-      run: OpenCppCoverage.exe --sources "${{ github.workspace }}\My2DEngine" --export_type cobertura:coverage.xml -- ctest -C Debug --output-on-failure
+      run: OpenCppCoverage.exe --sources "${{ github.workspace }}\My2DEngine" --cover_children --export_type cobertura:coverage.xml -- ctest -C Debug --output-on-failure
 
     - name: Upload Coverage Report
       uses: actions/upload-artifact@v4
