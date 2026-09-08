@@ -22,6 +22,20 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
 endif()
 
 # ==========================================
+# CODE COVERAGE (GCC/Clang/AppleClang)
+# ==========================================
+option(ENABLE_COVERAGE "Enable code coverage reporting" OFF)
+add_library(CoverageFlags INTERFACE)
+if(ENABLE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(CoverageFlags INTERFACE --coverage -O0 -g)
+    if(COMMAND target_link_options)
+        target_link_options(CoverageFlags INTERFACE --coverage)
+    else()
+        target_link_libraries(CoverageFlags INTERFACE --coverage)
+    endif()
+endif()
+
+# ==========================================
 # FETCHCONTENT: DOWNLOAD & AUTOMATIC BUILD
 # ==========================================
 include(FetchContent)
@@ -48,7 +62,7 @@ FetchContent_MakeAvailable(SDL3_image)
 # ==========================================
 # LINKING THE LIBRARIES TO THE ENGINE
 # ==========================================
-target_link_libraries(EngineCore PUBLIC SDL3::SDL3 SDL3_image::SDL3_image)
+target_link_libraries(EngineCore PUBLIC SDL3::SDL3 SDL3_image::SDL3_image CoverageFlags)
 target_link_libraries(My2DEngine PRIVATE EngineCore)
 
 # ==========================================
