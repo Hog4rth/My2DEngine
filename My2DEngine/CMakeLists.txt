@@ -22,6 +22,16 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
 endif()
 
 # ==========================================
+# CODE COVERAGE (GCC/Clang)
+# ==========================================
+option(ENABLE_COVERAGE "Enable code coverage reporting" OFF)
+add_library(CoverageFlags INTERFACE)
+if(ENABLE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    target_compile_options(CoverageFlags INTERFACE --coverage -O0 -g)
+    target_link_options(CoverageFlags INTERFACE --coverage)
+endif()
+
+# ==========================================
 # FETCHCONTENT: DOWNLOAD & AUTOMATIC BUILD
 # ==========================================
 include(FetchContent)
@@ -48,22 +58,13 @@ FetchContent_MakeAvailable(SDL3_image)
 # ==========================================
 # LINKING THE LIBRARIES TO THE ENGINE
 # ==========================================
-target_link_libraries(EngineCore PUBLIC SDL3::SDL3 SDL3_image::SDL3_image)
+target_link_libraries(EngineCore PUBLIC SDL3::SDL3 SDL3_image::SDL3_image CoverageFlags)
 target_link_libraries(My2DEngine PRIVATE EngineCore)
 
 # ==========================================
 # UNIT TESTING (Google Test)
 # ==========================================
 enable_testing()
-
-# ==========================================
-# CODE COVERAGE (GCC/Clang)
-# ==========================================
-option(ENABLE_COVERAGE "Enable code coverage reporting" OFF)
-if(ENABLE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
-    add_compile_options(--coverage -O0 -g)
-    add_link_options(--coverage)
-endif()
 
 FetchContent_Declare(
 	googletest
