@@ -56,6 +56,15 @@ target_link_libraries(My2DEngine PRIVATE EngineCore)
 # ==========================================
 enable_testing()
 
+# ==========================================
+# CODE COVERAGE (GCC/Clang)
+# ==========================================
+option(ENABLE_COVERAGE "Enable code coverage reporting" OFF)
+if(ENABLE_COVERAGE AND CMAKE_CXX_COMPILER_ID MATCHES "GNU|Clang")
+    add_compile_options(--coverage -O0 -g)
+    add_link_options(--coverage)
+endif()
+
 FetchContent_Declare(
 	googletest
 	GIT_REPOSITORY https://github.com/google/googletest.git
