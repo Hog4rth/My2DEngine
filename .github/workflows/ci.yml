@@ -40,7 +40,7 @@ jobs:
 
     - name: Run Tests with Coverage
       working-directory: build
-      run: OpenCppCoverage.exe --sources My2DEngine --export_type cobertura:coverage.xml -- ctest -C Debug --output-on-failure
+      run: OpenCppCoverage.exe --sources "${{ github.workspace }}\My2DEngine" --export_type cobertura:coverage.xml -- ctest -C Debug --output-on-failure
 
     - name: Upload Coverage Report
       uses: actions/upload-artifact@v4
