@@ -35,7 +35,7 @@ jobs:
       shell: bash
       run: |
         choco install opencppcoverage --yes
-        echo "C:\Program Files\OpenCppCoverage" >> $env:GITHUB_PATH
+        echo "C:\Program Files\OpenCppCoverage" >> "$GITHUB_PATH"
 
     - name: Run Tests with Coverage
       working-directory: build
