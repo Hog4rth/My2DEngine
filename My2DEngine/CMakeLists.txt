@@ -22,7 +22,7 @@ if (CMAKE_VERSION VERSION_GREATER 3.12)
 endif()
 
 # ==========================================
-# CODE COVERAGE (GCC/Clang)
+# CODE COVERAGE (GCC/Clang/AppleClang)
 # ==========================================
 option(ENABLE_COVERAGE "Enable code coverage reporting" OFF)
 add_library(CoverageFlags INTERFACE)
