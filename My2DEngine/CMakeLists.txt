@@ -54,6 +54,7 @@ FetchContent_Declare(
     SDL3
     GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
     GIT_TAG release-3.4.12
+	SYSTEM
 )
 FetchContent_MakeAvailable(SDL3)
 
@@ -62,6 +63,7 @@ FetchContent_Declare(
     SDL3_image
     GIT_REPOSITORY https://github.com/libsdl-org/SDL_image.git
     GIT_TAG release-3.4.4
+	SYSTEM
 )
 
 set(SDLIMAGE_AVIF OFF CACHE BOOL "Disable AVIF" FORCE)
@@ -83,6 +85,7 @@ FetchContent_Declare(
 	googletest
 	GIT_REPOSITORY https://github.com/google/googletest.git
 	GIT_TAG v1.14.0
+	SYSTEM
 )
 FetchContent_MakeAvailable(googletest)
 
