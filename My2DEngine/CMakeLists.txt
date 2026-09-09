@@ -90,7 +90,8 @@ FetchContent_MakeAvailable(googletest)
 add_executable(EngineTests
 "tests/FileManagerTest.cpp" "tests/CollisionSystemTest.cpp"
 "tests/InputSystemTest.cpp" "tests/MovementSystemTest.cpp"
-"tests/PhysicsSystemTest.cpp" "tests/RenderSystemTest.cpp")
+"tests/PhysicsSystemTest.cpp" "tests/RenderSystemTest.cpp"
+"tests/GameEngineTest.cpp")
 target_link_libraries(EngineTests PRIVATE EngineCore GTest::gtest_main)
 set_property(TARGET EngineTests PROPERTY CXX_STANDARD 20)
 
