@@ -101,7 +101,6 @@ void PhysicsSystem::CalculateVerticalVelocity(const CollisionComponent& collider
                                               KinematicComponent& kinematic, const float deltaTime) {
 	bool hasJumped = false;
 	if (kinematic.jumpBufferTimer > 0) {
-
 		if (!collider.isOnTheGround && collider.onTheLeftWall) {
 			// Left Wall Jump
 			velocity.velocityY = -kinematic.jumpForceY;

@@ -51,5 +51,4 @@ TEST_F(RenderSystemTest, FullRenderLifecycle) {
 	EXPECT_NO_THROW(renderSystem.UpdateRender(tags, positions, sizes));
 	EXPECT_NO_THROW(renderSystem.Close());
 }
-
 }  // namespace Engine::Tests
