@@ -99,8 +99,8 @@ void PhysicsSystem::CalculateHorizontalVelocity(const float currentDirection, co
 
 void PhysicsSystem::CalculateVerticalVelocity(const CollisionComponent& collider, VelocityComponent& velocity,
                                               KinematicComponent& kinematic, const float deltaTime) {
+	bool hasJumped = false;
 	if (kinematic.jumpBufferTimer > 0) {
-		bool hasJumped = false;
 
 		if (!collider.isOnTheGround && collider.onTheLeftWall) {
 			// Left Wall Jump
@@ -124,17 +124,19 @@ void PhysicsSystem::CalculateVerticalVelocity(const CollisionComponent& collider
 		}
 	}
 
-	if (collider.onTheLeftWall || collider.onTheRightWall) {
-		velocity.velocityY += kinematic.wallGravity * deltaTime;
+	if (!hasJumped) {
+		if (collider.onTheLeftWall || collider.onTheRightWall) {
+			velocity.velocityY += kinematic.wallGravity * deltaTime;
 
-		if (velocity.velocityY >= kinematic.maxWallSpeedY) {
-			velocity.velocityY = kinematic.maxWallSpeedY;
-		}
-	} else {
-		velocity.velocityY += kinematic.gravity * deltaTime;
+			if (velocity.velocityY >= kinematic.maxWallSpeedY) {
+				velocity.velocityY = kinematic.maxWallSpeedY;
+			}
+		} else {
+			velocity.velocityY += kinematic.gravity * deltaTime;
 
-		if (velocity.velocityY >= kinematic.maxSpeedY) {
-			velocity.velocityY = kinematic.maxSpeedY;
+			if (velocity.velocityY >= kinematic.maxSpeedY) {
+				velocity.velocityY = kinematic.maxSpeedY;
+			}
 		}
 	}
 }
