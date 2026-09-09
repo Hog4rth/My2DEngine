@@ -1,3 +1,7 @@
+#include <cstdio>
+
+#include <fstream>
+
 #include <SDL3/SDL.h>
 #include <gtest/gtest.h>
 
@@ -9,6 +13,19 @@ class GameEngineTest : public ::testing::Test {
 protected:
 	void SetUp() override {
 		SDL_SetHint(SDL_HINT_VIDEO_DRIVER, "dummy");
+
+		std::ofstream settings("Settings.ini");
+		settings << "Width=800\nHeight=600\n";
+		settings.close();
+
+		std::ofstream physics("Physics.ini");
+		physics << "Gravity=2800.0\n";
+		physics.close();
+	}
+
+	void TearDown() override {
+		std::remove("Settings.ini");
+		std::remove("Physics.ini");
 	}
 };
 
