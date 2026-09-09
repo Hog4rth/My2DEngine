@@ -7,6 +7,7 @@
 /build/
 /.vs/
 /CMakeSettings.json
+/TestResults/
 
 # Ignore all compiled binary files
 *.exe
