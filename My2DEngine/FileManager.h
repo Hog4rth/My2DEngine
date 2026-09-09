@@ -18,6 +18,7 @@ public:
 		auto it = dataMap.find(key);
 		if (it == dataMap.end()) {
 			return defaultValue;
+			std::cerr << "Warning: Key '" << key << "' not found. Using default value.\n";
 		}
 
 		const std::string keyFound = it->second;
