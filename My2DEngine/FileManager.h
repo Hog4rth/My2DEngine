@@ -17,8 +17,8 @@ public:
 	T Load(std::string_view key, const T defaultValue) {
 		auto it = dataMap.find(key);
 		if (it == dataMap.end()) {
-			return defaultValue;
 			std::cerr << "Warning: Key '" << key << "' not found. Using default value.\n";
+			return defaultValue;
 		}
 
 		const std::string keyFound = it->second;
