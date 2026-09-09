@@ -87,7 +87,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(googletest)
 
 # Create and link a separate executable strictly for running tests
-add_executable(EngineTests "tests/test_example.cpp")
+add_executable(EngineTests "tests/FileManagerTest.cpp")
 target_link_libraries(EngineTests PRIVATE EngineCore GTest::gtest_main)
 set_property(TARGET EngineTests PROPERTY CXX_STANDARD 20)
 
