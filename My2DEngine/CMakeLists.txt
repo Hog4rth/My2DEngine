@@ -110,7 +110,7 @@ add_custom_command(
     COMMAND_EXPAND_LISTS
 )
 include(GoogleTest)
-add_test(NAME test_example COMMAND EngineTests)
+add_test(NAME EngineTests COMMAND EngineTests)
 
 # Copy all .dll files (SDL3, SDL3_image) next to the executable
 add_custom_command(
