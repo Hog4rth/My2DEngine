@@ -9,7 +9,7 @@
 
 class FileManager {
 public:
-	explicit FileManager(std::string_view path) : filePath(path) {}
+	explicit FileManager(std::string_view path, bool verbose = false) : filePath(path), verbose(verbose) {}
 
 	void LoadFile();
 
@@ -17,6 +17,9 @@ public:
 	T Load(std::string_view key, const T defaultValue) {
 		auto it = dataMap.find(key);
 		if (it == dataMap.end()) {
+			if (verbose) {
+				std::cerr << "Warning: Key '" << key << "' not found. Using default value.\n";
+			}
 			return defaultValue;
 		}
 
@@ -30,7 +33,9 @@ public:
 			Convert >> valueFound;
 
 			if (Convert.fail() || !Convert.eof()) {
-				std::cerr << "Warning: Failed to convert value for key '" << key << "'. Using default value.\n";
+				if (verbose) {
+					std::cerr << "Warning: Failed to convert value for key '" << key << "'. Using default value.\n";
+				}
 				return defaultValue;
 			}
 
@@ -41,4 +46,5 @@ public:
 private:
 	std::map<std::string, std::string, std::less<>> dataMap;
 	std::string filePath;
+	bool verbose;
 };

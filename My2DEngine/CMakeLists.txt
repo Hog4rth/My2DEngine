@@ -54,6 +54,7 @@ FetchContent_Declare(
     SDL3
     GIT_REPOSITORY https://github.com/libsdl-org/SDL.git
     GIT_TAG release-3.4.12
+	SYSTEM
 )
 FetchContent_MakeAvailable(SDL3)
 
@@ -62,6 +63,7 @@ FetchContent_Declare(
     SDL3_image
     GIT_REPOSITORY https://github.com/libsdl-org/SDL_image.git
     GIT_TAG release-3.4.4
+	SYSTEM
 )
 
 set(SDLIMAGE_AVIF OFF CACHE BOOL "Disable AVIF" FORCE)
@@ -83,11 +85,16 @@ FetchContent_Declare(
 	googletest
 	GIT_REPOSITORY https://github.com/google/googletest.git
 	GIT_TAG v1.14.0
+	SYSTEM
 )
 FetchContent_MakeAvailable(googletest)
 
 # Create and link a separate executable strictly for running tests
-add_executable(EngineTests "tests/test_example.cpp")
+add_executable(EngineTests
+"tests/FileManagerTest.cpp" "tests/CollisionSystemTest.cpp"
+"tests/InputSystemTest.cpp" "tests/MovementSystemTest.cpp"
+"tests/PhysicsSystemTest.cpp" "tests/RenderSystemTest.cpp"
+"tests/GameEngineTest.cpp")
 target_link_libraries(EngineTests PRIVATE EngineCore GTest::gtest_main)
 set_property(TARGET EngineTests PROPERTY CXX_STANDARD 20)
 
@@ -103,7 +110,7 @@ add_custom_command(
     COMMAND_EXPAND_LISTS
 )
 include(GoogleTest)
-add_test(NAME test_example COMMAND EngineTests)
+add_test(NAME EngineTests COMMAND EngineTests)
 
 # Copy all .dll files (SDL3, SDL3_image) next to the executable
 add_custom_command(

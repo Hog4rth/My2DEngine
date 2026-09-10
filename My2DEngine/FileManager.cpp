@@ -29,7 +29,7 @@ void FileManager::LoadFile() {
 			}
 		}
 		file.close();
-	} else {
+	} else if (verbose) {
 		std::cerr << "Warning: Config file not found! Using default settings.\n";
 	}
 }
