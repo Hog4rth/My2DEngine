@@ -19,7 +19,7 @@ protected:
 		std::ofstream out("test_render.ini");
 		out << "Width=100\nHeight=100\n";
 		out.close();
-		// Uses "dummy" video driver to avoid setup errors since the tests are done in a headless environment (no windows)
+		// Uses "dummy" video driver to avoid setup errors since the tests are done in a headless environment
 		SDL_SetHint(SDL_HINT_VIDEO_DRIVER, "dummy");
 	}
 
